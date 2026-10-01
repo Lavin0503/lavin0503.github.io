@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lav1n — Developer, Creator & Innovator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            900: '#0a0a16',
+                            800: '#12122b',
+                            700: '#1c1c42',
+                            600: '#2b2b63',
+                            accent: '#00f0ff',
+                            purple: '#b000ff',
+                            pink: '#ff007f'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a16;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .font-mono-custom {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+        }
+        .neon-glow-cyan:hover {
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+        }
+        .neon-glow-purple {
+            box-shadow: 0 0 25px rgba(176, 0, 255, 0.25);
+        }
+        .neon-glow-purple:hover {
+            box-shadow: 0 0 35px rgba(176, 0, 255, 0.6);
+        }
+        .glass-panel {
+            background: rgba(18, 18, 43, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-panel:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+        }
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-gradient-text {
+            background: linear-gradient(135deg, #00f0ff 0%, #b000ff 50%, #ff007f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1c1c42;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2b2b63;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex flex-col selection:bg-cyber-accent selection:text-black">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <img src="https://lavin0503.github.io/Lav1nsWebhooks/Lav1n%20Glossy.jpg" alt="Lav1n logo" class="w-10 h-10 rounded-xl object-cover neon-glow-cyan transition-transform group-hover:scale-105" onerror="this.src='https://placehold.co/40x40/1c1c42/00f0ff?text=L1'">
+                <span class="font-bold text-xl tracking-wider text-white font-mono-custom">Lav1n<span class="text-cyber-accent">.is-a.dev</span></span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#hero" class="hover:text-cyber-accent transition-colors">Home</a>
+                <a href="#inventions" class="hover:text-cyber-accent transition-colors">Inventions</a>
+                <a href="#socials" class="hover:text-cyber-accent transition-colors">Socials</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <a href="https://github.com/Lavin0503" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-cyber-700/60 hover:bg-cyber-600/80 text-cyber-accent text-sm font-mono-custom border border-cyber-accent/30 transition-all shadow-lg hover:shadow-cyan-500/20">
+                    <i class="fab fa-github mr-2"></i> GitHub
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-white/10 px-4 pt-2 pb-4 space-y-3">
+            <a href="#hero" class="block py-2 text-gray-300 hover:text-cyber-accent">Home</a>
+            <a href="#inventions" class="block py-2 text-gray-300 hover:text-cyber-accent">Inventions</a>
+            <a href="#socials" class="block py-2 text-gray-300 hover:text-cyber-accent">Socials</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative z-10 pt-24 pb-20 md:pt-36 md:pb-32 flex items-center justify-center">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyber-700/40 border border-cyber-accent/30 text-cyber-accent text-xs md:text-sm font-mono-custom mb-6 neon-glow-cyan animate-pulse">
+                <span class="w-2 h-2 rounded-full bg-cyber-accent"></span>
+                <span>SYSTEM ONLINE // CREATOR & INNOVATOR</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
+                Hi, I'm <span class="hero-gradient-text">Lav1n</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-lg sm:text-xl text-gray-300 mb-10 font-light leading-relaxed">
+                Building cutting-edge Discord bots, web applications, utilities, browser extensions, and interactive digital tools.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <a href="#inventions" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-accent to-blue-600 text-black font-bold font-mono-custom shadow-lg neon-glow-cyan hover:opacity-90 transition-all transform hover:-translate-y-0.5">
+                    Explore Inventions <i class="fas fa-arrow-down ml-2"></i>
+                </a>
+                <a href="#socials" class="px-8 py-4 rounded-xl glass-panel text-white font-bold font-mono-custom hover:border-cyber-purple transition-all transform hover:-translate-y-0.5">
+                    Connect Socials <i class="fas fa-share-nodes ml-2"></i>
+                </a>
+            </div>
+
+            <!-- Quick Social Icons Row in Hero -->
+            <div class="flex justify-center items-center space-x-6 text-2xl text-gray-400">
+                <a href="https://github.com/Lavin0503" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-accent transition-colors p-2" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/@Lav1nRules" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-accent transition-colors p-2" title="X / Twitter">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://tiktok.com/@lav1nrules" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-pink transition-colors p-2" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://soundcloud.com/lav1nrulez" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-purple transition-colors p-2" title="SoundCloud">
+                    <i class="fab fa-soundcloud"></i>
+                </a>
+                <a href="https://roblox.com/users/4546608332/profile" target="_blank" rel="noopener noreferrer" class="hover:text-red-500 transition-colors p-2 flex items-center justify-center" title="Roblox">
+                    <svg class="w-6 h-6 fill-current inline-block" viewBox="0 0 24 24"><path d="M5.165 0L0 18.835L18.835 24L24 5.165L5.165 0ZM14.35 14.35L8.525 15.65L9.825 9.825L15.65 8.525L14.35 14.35Z"/></svg>
+                </a>
+                <a href="https://youtube.com/@lav1nrules" target="_blank" rel="noopener noreferrer" class="hover:text-red-500 transition-colors p-2" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://discord.com/channels/@me/1411789389163401277" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-400 transition-colors p-2" title="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="inventions" class="relative z-10 py-20 bg-cyber-800/40 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4 font-mono-custom">
+                    <span class="text-cyber-accent">//</span> Featured Inventions
+                </h2>
+                <p class="text-gray-400 text-base sm:text-lg">
+                    Browse Lav1n's projects and tools organized by category.
+                </p>
+            </div>
+
+            <!-- Search Bar & Filter Controls -->
+            <div class="max-w-xl mx-auto mb-8">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" id="project-search" placeholder="Search inventions by name or keyword..." class="w-full pl-11 pr-4 py-3 rounded-xl glass-panel text-white placeholder-gray-400 focus:outline-none focus:border-cyber-accent transition-all font-mono-custom text-sm">
+                </div>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12">
+                <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all bg-cyber-accent text-black shadow-lg shadow-cyan-500/20" data-filter="all">
+                    All Inventions
+                </button>
+                <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all glass-panel text-gray-300 hover:text-white" data-filter="discord">
+                    Discord Bots
+                </button>
+                <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all glass-panel text-gray-300 hover:text-white" data-filter="web">
+                    Web Apps & Tools
+                </button>
+                <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all glass-panel text-gray-300 hover:text-white" data-filter="games">
+                    Games
+                </button>
+                <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all glass-panel text-gray-300 hover:text-white" data-filter="browser">
+                    Browser Extensions / Userscripts
+                </button>
+            </div>
+
+            <!-- Grid of Projects -->
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project: Lav1n's Utility Bot -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="discord" data-title="lav1n's utility bot discord bot management automation">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lavin0503.github.io/Lavin0503/Lubby%20Pfp.png" alt="Lav1n's Utility Bot Icon" class="w-12 h-12 rounded-xl object-cover border border-indigo-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/00f0ff?text=BOT'">
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-mono-custom border border-indigo-500/20">Discord Bot</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Lav1n’s Utility Bot</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            A powerful Discord utility bot to help manage and supercharge your server with robust automation tools.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://discord.com/oauth2/authorize?client_id=1448345852073742540" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-colors shadow-lg shadow-indigo-600/20">
+                            <span>Authorize Bot</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Lav1n's Webhooks -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="lav1n's webhooks discord webhook tool manager">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lavin0503.github.io/Lav1nsWebhooks/STARFAVICON.png" alt="Lav1n's Webhooks Icon" class="w-12 h-12 rounded-xl object-cover border border-cyber-accent/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/00f0ff?text=HOOK'">
+                            <span class="px-3 py-1 rounded-full bg-cyber-accent/10 text-cyber-accent text-xs font-mono-custom border border-cyber-accent/20">Web App & Tool</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Lav1n’s Webhooks</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Create, manage, and send custom Discord webhooks with ease directly from your browser.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://lavin0503.github.io/Lav1nsWebhooks/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-cyber-700 hover:bg-cyber-600 text-cyber-accent font-medium text-sm border border-cyber-accent/30 transition-colors">
+                            <span>Launch Webhooks</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Airport2Airport -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="airport2airport flight route airport connection tracker">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lavin0503.github.io/Lavin0503/apple-icon.png" alt="Airport2Airport Icon" class="w-12 h-12 rounded-xl object-cover border border-cyan-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/00f0ff?text=A2A'">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono-custom border border-cyan-500/20">Web App & Tool</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Airport2Airport</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Seamless flight route and airport connection tracker for aviation enthusiasts.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://airport2airport.duckdns.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-cyan-600/30 hover:bg-cyan-600 text-cyan-200 hover:text-white font-medium text-sm border border-cyan-500/40 transition-colors">
+                            <span>Visit Airport2Airport</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Estrix Bot -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="discord" data-title="estrix bot discord bot render">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://cdn.discordapp.com/avatars/1535231797598625892/6b9bf0c59d33fec1c0133bcfe87b15a6.png?size=1024" alt="Estrix Bot Icon" class="w-12 h-12 rounded-xl object-cover border border-purple-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/b000ff?text=EST'">
+                            <span class="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-mono-custom border border-purple-500/20">Discord Bot</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Estrix Bot</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Feature-rich Discord bot hosted and deployed reliably on Render.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://estrix.onrender.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white font-medium text-sm border border-purple-500/40 transition-colors">
+                            <span>Open Estrix Bot</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Magic Square -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web games" data-title="magic square puzzle math tool web app">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lavin0503.github.io/ms/2026_07_18_0i9_Kleki.png" alt="Magic Square Icon" class="w-12 h-12 rounded-xl object-cover border border-amber-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/f59e0b?text=MS'">
+                            <span class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono-custom border border-amber-500/20">Web App & Game</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Magic Square</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Magic Square is a game — an interactive magic square puzzle and math tool exploring mathematical matrices.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://lavin0503.github.io/ms/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white font-medium text-sm border border-amber-500/40 transition-colors">
+                            <span>Open Magic Square</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Untitled Maths System (UMS) -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="games" data-title="untitled maths system ums math game puzzle">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lavin0503.github.io/ums/Screenshot%202026-04-26%20103644.png" alt="Untitled Maths System Icon" class="w-12 h-12 rounded-xl object-cover border border-emerald-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/10b981?text=UMS'">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono-custom border border-emerald-500/20">Game</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Untitled Maths System (UMS)</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Untitled Maths System (UMS) is a game.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://lavin0503.github.io/ums/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-emerald-600/30 hover:bg-emerald-600 text-emerald-200 hover:text-white font-medium text-sm border border-emerald-500/40 transition-colors">
+                            <span>Play UMS Game</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Sun vs Moon -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="browser" data-title="sun vs moon auto clicker userscript tampermonkey neal.fun">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://i.ibb.co/QXR89nv/2024-11-03-0z1-Kleki.png" alt="Sun vs Moon Icon" class="w-12 h-12 rounded-xl object-cover border border-yellow-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/eab308?text=SUN'">
+                            <span class="px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs font-mono-custom border border-yellow-500/20">Userscript</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Sun vs Moon Auto Clicker</h3>
+                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                            A userscript that automatically clicks either the Sun or Moon button when you press <code class="text-cyber-accent bg-cyber-900 px-1 py-0.5 rounded">S</code> and stops clicking when you press <code class="text-cyber-accent bg-cyber-900 px-1 py-0.5 rounded">M</code> on <a href="https://neal.fun/sun-vs-moon/" target="_blank" rel="noopener noreferrer" class="text-cyber-accent underline">neal.fun/sun-vs-moon</a>. Install it in Tampermonkey from GreasyFork.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="https://greasyfork.org/en/scripts/515639-sun-vs-moon-auto-click-switchable" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-yellow-600/30 hover:bg-yellow-600 text-yellow-200 hover:text-white font-medium text-sm border border-yellow-500/40 transition-colors">
+                            <span>Get on Tampermonkey (GreasyFork)</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Wave - Floating Web Viewer -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="browser" data-title="wave floating web viewer browser extension tampermonkey">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lavin0503.github.io/Lavin0503/waw.png" alt="Wave Icon" class="w-12 h-12 rounded-xl object-cover border border-blue-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/3b82f6?text=WAVE'">
+                            <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono-custom border border-blue-500/20">Browser Extension</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Wave - Floating Web Viewer</h3>
+                        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                            Draggable/resizable floating panel (Wave) with tabs, bookmarks, theme presets, frame-block detection, an in-viewer address bar with suggestions, onboarding help, a Tampermonkey menu command, and a hotkey to snap it to your mouse. Press <code class="text-cyber-accent bg-cyber-900 px-1 py-0.5 rounded">p</code> to open/close. Available as a Tampermonkey userscript, a Microsoft Edge extension, and a Firefox add-on.
+                        </p>
+                    </div>
+                    <div>
+<div class="space-y-3">
+                        <a href="https://microsoftedge.microsoft.com/addons/detail/wave-floating-web-viewe/cdklkmbjnedmlmenecncokgpmgondign" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-teal-600/30 hover:bg-teal-600 text-teal-200 hover:text-white font-medium text-sm border border-teal-500/40 transition-colors">
+                            <i class="fab fa-edge mr-2"></i>
+                            <span>Microsoft Edge Add-ons</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                        <a href="https://addons.mozilla.org/en-US/firefox/addon/wave-floating-web-viewer/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-orange-600/30 hover:bg-orange-600 text-orange-200 hover:text-white font-medium text-sm border border-orange-500/40 transition-colors">
+                            <i class="fab fa-firefox-browser mr-2"></i>
+                            <span>Firefox Add-ons</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                        <a href="https://greasyfork.org/en/scripts/590044-wave-floating-web-viewer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-blue-600/30 hover:bg-blue-600 text-blue-200 hover:text-white font-medium text-sm border border-blue-500/40 transition-colors">
+                            <i class="fas fa-code mr-2"></i>
+                            <span>Tampermonkey (GreasyFork)</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="socials" class="relative z-10 py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4 font-mono-custom">
+                <span class="text-cyber-purple">//</span> Connect With Lav1n
+            </h2>
+            <p class="text-gray-400 text-base sm:text-lg mb-12 max-w-xl mx-auto">
+                Follow across all official channels for code releases, videos, updates, and community engagement.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- YouTube -->
+                <a href="https://youtube.com/@lav1nrules" target="_blank" rel="noopener noreferrer" class="glass-panel p-6 rounded-2xl flex items-center space-x-4 hover:border-red-500/50 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-2xl group-hover:bg-red-500 group-hover:text-white transition-all">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="text-white font-bold text-lg group-hover:text-red-400 transition-colors">YouTube</h4>
+                        <p class="text-gray-400 text-sm font-mono-custom">@lav1nrules</p>
+                    </div>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@lav1nrules" target="_blank" rel="noopener noreferrer" class="glass-panel p-6 rounded-2xl flex items-center space-x-4 hover:border-cyber-pink/50 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-pink-500/10 text-cyber-pink flex items-center justify-center text-2xl group-hover:bg-cyber-pink group-hover:text-black transition-all">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="text-white font-bold text-lg group-hover:text-cyber-pink transition-colors">TikTok</h4>
+                        <p class="text-gray-400 text-sm font-mono-custom">@lav1nrules</p>
+                    </div>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/Lavin0503" target="_blank" rel="noopener noreferrer" class="glass-panel p-6 rounded-2xl flex items-center space-x-4 hover:border-cyber-accent/50 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-cyber-accent/10 text-cyber-accent flex items-center justify-center text-2xl group-hover:bg-cyber-accent group-hover:text-black transition-all">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="text-white font-bold text-lg group-hover:text-cyber-accent transition-colors">GitHub</h4>
+                        <p class="text-gray-400 text-sm font-mono-custom">Lavin0503</p>
+                    </div>
+                </a>
+
+                <!-- X / Twitter -->
+                <a href="https://x.com/@Lav1nRules" target="_blank" rel="noopener noreferrer" class="glass-panel p-6 rounded-2xl flex items-center space-x-4 hover:border-white/50 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-white/10 text-white flex items-center justify-center text-2xl group-hover:bg-white group-hover:text-black transition-all">
+                        <i class="fab fa-x-twitter"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="text-white font-bold text-lg group-hover:text-gray-200 transition-colors">X (Twitter)</h4>
+                        <p class="text-gray-400 text-sm font-mono-custom">@Lav1nRules</p>
+                    </div>
+                </a>
+
+                <!-- Roblox -->
+                <a href="https://roblox.com/users/4546608332/profile" target="_blank" rel="noopener noreferrer" class="glass-panel p-6 rounded-2xl flex items-center space-x-4 hover:border-red-400/50 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-red-600/10 text-red-400 flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all">
+                        <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M5.165 0L0 18.835L18.835 24L24 5.165L5.165 0ZM14.35 14.35L8.525 15.65L9.825 9.825L15.65 8.525L14.35 14.35Z"/></svg>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="text-white font-bold text-lg group-hover:text-red-300 transition-colors">Roblox</h4>
+                        <p class="text-gray-400 text-sm font-mono-custom">ID: 4546608332</p>
+                    </div>
+                </a>
+
+                <!-- SoundCloud -->
+                <a href="https://soundcloud.com/lav1nrulez" target="_blank" rel="noopener noreferrer" class="glass-panel p-6 rounded-2xl flex items-center space-x-4 hover:border-orange-500/50 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center text-2xl group-hover:bg-orange-500 group-hover:text-black transition-all">
+                        <i class="fab fa-soundcloud"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="text-white font-bold text-lg group-hover:text-orange-400 transition-colors">SoundCloud</h4>
+                        <p class="text-gray-400 text-sm font-mono-custom">lav1nrulez</p>
+                    </div>
+                </a>
+
+                <!-- Discord -->
+                <a href="https://discord.com/channels/@me/1411789389163401277" target="_blank" rel="noopener noreferrer" class="glass-panel p-6 rounded-2xl flex items-center space-x-4 hover:border-indigo-500/50 transition-all group">
+                    <div class="w-14 h-14 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-2xl group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <div class="text-left">
+                        <h4 class="text-white font-bold text-lg group-hover:text-indigo-300 transition-colors">Discord</h4>
+                        <p class="text-gray-400 text-sm font-mono-custom">lav1nrules</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 glass-panel border-t border-white/10 py-8 mt-auto text-center text-sm text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2 font-mono-custom">
+                <span class="w-2 h-2 rounded-full bg-cyber-accent"></span>
+                <span>© 2026 Lav1n. All Rights Reserved.</span>
+            </div>
+            <div class="flex items-center space-x-6 text-sm font-mono-custom">
+                <a href="#hero" class="hover:text-cyber-accent transition-colors">Back to Top <i class="fas fa-arrow-up ml-1"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Filtering and Search logic
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        const searchInput = document.getElementById('project-search');
+
+        let currentCategory = 'all';
+
+        function filterProjects() {
+            const query = searchInput.value.toLowerCase().trim();
+
+            projectCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const titleText = card.getAttribute('data-title');
+                const textContent = card.innerText.toLowerCase();
+
+                const matchesCategory = (currentCategory === 'all' || category.split(' ').includes(currentCategory));
+                const matchesQuery = (query === '' || titleText.includes(query) || textContent.includes(query));
+
+                if (matchesCategory && matchesQuery) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-cyber-accent', 'text-black', 'shadow-lg', 'shadow-cyan-500/20');
+                    btn.classList.add('glass-panel', 'text-gray-300');
+                });
+                button.classList.remove('glass-panel', 'text-gray-300');
+                button.classList.add('bg-cyber-accent', 'text-black', 'shadow-lg', 'shadow-cyan-500/20');
+
+                currentCategory = button.getAttribute('data-filter');
+                filterProjects();
+            });
+        });
+
+        searchInput.addEventListener('input', filterProjects);
+
+        // Particle background animation
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        const numberOfParticles = 50;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.color = Math.random() > 0.5 ? '#00f0ff' : '#b000ff';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                else if (this.x < 0) this.x = canvas.width;
+
+                if (this.y > canvas.height) this.y = 0;
+                else if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+
+                for (let j = i + 1; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - distance / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
