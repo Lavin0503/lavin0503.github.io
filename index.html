@@ -349,15 +349,26 @@
                         </p>
                     </div>
                     <div>
-                        <!-- Coming Soon (not clickable). When it launches, swap this block for the button below:
-                        <a href="https://discord.com/oauth2/authorize?client_id=1558890733002297436&permissions=268520448&scope=bot%20applications.commands" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white font-medium text-sm border border-amber-500/40 transition-colors">
-                            <span>Add Givevanced</span>
-                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
-                        </a>
-                        -->
-                        <div aria-disabled="true" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-amber-600/10 text-amber-300/80 font-medium text-sm border border-dashed border-amber-500/40 cursor-not-allowed select-none">
-                            <i class="fas fa-clock mr-2 text-xs"></i>
-                            <span>Coming Soon</span>
+                        <!-- Countdown (24 hours, fixed target so every visitor sees the same time). Swaps to the buttons when it hits zero. -->
+                        <div id="gv-countdown" aria-live="polite" class="w-full py-4 px-4 rounded-xl bg-amber-600/10 border border-dashed border-amber-500/40 text-center select-none">
+                            <div class="text-amber-300/80 text-xs font-mono-custom mb-2"><i class="fas fa-clock mr-2"></i>Launching in</div>
+                            <div class="flex justify-center items-center gap-2 font-mono-custom text-amber-200">
+                                <div><span id="gv-h" class="text-2xl font-bold">24</span><span class="block text-[10px] text-amber-300/60">HRS</span></div>
+                                <span class="text-xl font-bold pb-4">:</span>
+                                <div><span id="gv-m" class="text-2xl font-bold">00</span><span class="block text-[10px] text-amber-300/60">MIN</span></div>
+                                <span class="text-xl font-bold pb-4">:</span>
+                                <div><span id="gv-s" class="text-2xl font-bold">00</span><span class="block text-[10px] text-amber-300/60">SEC</span></div>
+                            </div>
+                        </div>
+                        <div id="gv-buttons" class="hidden space-y-3">
+                            <a href="https://discord.com/oauth2/authorize?client_id=1558890733002297436" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white font-medium text-sm border border-amber-500/40 transition-colors">
+                                <span>Authorize</span>
+                                <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                            </a>
+                            <a href="https://givevanced.is-a.bot" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-cyber-700 hover:bg-cyber-600 text-cyber-accent font-medium text-sm border border-cyber-accent/30 transition-colors">
+                                <span>Website</span>
+                                <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -472,6 +483,30 @@
                             <i class="fas fa-external-link-alt ml-2 text-xs"></i>
                         </a>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Project: L1ve OS -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="l1ve os desktop exe draggable icons file manager taskbar app store">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lav1n.is-a.dev/L1ve-OS/logo.svg" alt="L1ve OS Icon" class="w-12 h-12 rounded-xl object-cover border border-pink-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/ff007f?text=L1'">
+                            <span class="px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 text-xs font-mono-custom border border-pink-500/20">Web App & Tool</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">L1ve OS</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            L1VE OS is a free, install-free desktop exe, with draggable icons, a file manager, a taskbar, and an app store.
+                        </p>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://github.com/Lavin0503/L1ve-OS/releases/download/v2.0.0/L1ve.OS.exe" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white font-medium text-sm border border-pink-500/40 transition-colors">
+                            <i class="fas fa-download mr-2 text-xs"></i>
+                            <span>Download</span>
+                        </a>
+                        <a href="https://lav1n.is-a.dev/L1ve-OS/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white font-medium text-sm border border-pink-500/40 transition-colors">
+                            <span>Open L1ve OS</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -610,6 +645,32 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') dismiss();
             });
+        })();
+
+        // Givevanced 24-hour countdown (fixed target: same for every visitor)
+        (function () {
+            const target = new Date('2026-10-25T11:45:00Z').getTime();
+            const cd = document.getElementById('gv-countdown');
+            const btns = document.getElementById('gv-buttons');
+            if (!cd || !btns) return;
+            const h = document.getElementById('gv-h'), m = document.getElementById('gv-m'), sec = document.getElementById('gv-s');
+            const pad = n => String(n).padStart(2, '0');
+            let timer;
+            function tick() {
+                const left = target - Date.now();
+                if (left <= 0) {
+                    cd.classList.add('hidden');
+                    btns.classList.remove('hidden');
+                    clearInterval(timer);
+                    return;
+                }
+                const total = Math.floor(left / 1000);
+                h.textContent = pad(Math.floor(total / 3600));
+                m.textContent = pad(Math.floor((total % 3600) / 60));
+                sec.textContent = pad(total % 60);
+            }
+            tick();
+            timer = setInterval(tick, 1000);
         })();
 
         // Mobile Menu Toggle
