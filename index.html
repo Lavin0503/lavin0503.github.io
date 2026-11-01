@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lav1n — Developer, Creator & Innovator</title>
+    <!-- Favicon / home-screen icon (same image as the header logo) -->
+    <link rel="icon" type="image/jpeg" href="https://lavin0503.github.io/Lav1nsWebhooks/Lav1n%20Glossy.jpg">
+    <link rel="shortcut icon" href="https://lavin0503.github.io/Lav1nsWebhooks/Lav1n%20Glossy.jpg">
+    <link rel="apple-touch-icon" href="https://lavin0503.github.io/Lav1nsWebhooks/Lav1n%20Glossy.jpg">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -17,7 +21,7 @@
                             800: '#12122b',
                             700: '#1c1c42',
                             600: '#2b2b63',
-                            accent: '#00f0ff',
+                            accent: '#c4a5ff',
                             purple: '#b000ff',
                             pink: '#ff007f'
                         }
@@ -44,10 +48,10 @@
             font-family: 'JetBrains Mono', monospace;
         }
         .neon-glow-cyan {
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+            box-shadow: 0 0 25px rgba(196, 165, 255, 0.25);
         }
         .neon-glow-cyan:hover {
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 35px rgba(196, 165, 255, 0.6);
         }
         .neon-glow-purple {
             box-shadow: 0 0 25px rgba(176, 0, 255, 0.25);
@@ -62,7 +66,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .glass-panel:hover {
-            border-color: rgba(0, 240, 255, 0.3);
+            border-color: rgba(196, 165, 255, 0.3);
         }
         #bg-canvas {
             position: fixed;
@@ -74,7 +78,7 @@
             z-index: 0;
         }
         .hero-gradient-text {
-            background: linear-gradient(135deg, #00f0ff 0%, #b000ff 50%, #ff007f 100%);
+            background: linear-gradient(135deg, #c4a5ff 0%, #b000ff 50%, #ff007f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -124,7 +128,7 @@
             </p>
 
             <a href="https://lavin0503.github.io/"
-               class="inline-flex items-center px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyber-accent to-blue-600 text-black font-bold font-mono-custom shadow-lg neon-glow-cyan hover:opacity-90 transition-all transform hover:-translate-y-0.5">
+               class="inline-flex items-center px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyber-accent to-purple-500 text-black font-bold font-mono-custom shadow-lg neon-glow-cyan hover:opacity-90 transition-all transform hover:-translate-y-0.5">
                 Explore Creations <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
@@ -134,7 +138,7 @@
     <header class="sticky top-0 z-50 glass-panel border-b border-white/10 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center space-x-3 group">
-                <img src="https://lavin0503.github.io/Lav1nsWebhooks/Lav1n%20Glossy.jpg" alt="Lav1n logo" class="w-10 h-10 rounded-xl object-cover neon-glow-cyan transition-transform group-hover:scale-105" onerror="this.src='https://placehold.co/40x40/1c1c42/00f0ff?text=L1'">
+                <img src="https://lavin0503.github.io/Lav1nsWebhooks/Lav1n%20Glossy.jpg" alt="Lav1n logo" class="w-10 h-10 rounded-xl object-cover neon-glow-cyan transition-transform group-hover:scale-105" onerror="this.src='https://placehold.co/40x40/1c1c42/c4a5ff?text=L1'">
                 <span class="font-bold text-xl tracking-wider text-white font-mono-custom">Lav1n<span class="text-cyber-accent">.is-a.dev</span></span>
             </a>
             
@@ -145,7 +149,7 @@
             </nav>
 
             <div class="flex items-center space-x-4">
-                <a href="https://github.com/Lavin0503" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-cyber-700/60 hover:bg-cyber-600/80 text-cyber-accent text-sm font-mono-custom border border-cyber-accent/30 transition-all shadow-lg hover:shadow-cyan-500/20">
+                <a href="https://github.com/Lavin0503" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-cyber-700/60 hover:bg-cyber-600/80 text-cyber-accent text-sm font-mono-custom border border-cyber-accent/30 transition-all shadow-lg hover:shadow-purple-400/20">
                     <i class="fab fa-github mr-2"></i> GitHub
                 </a>
                 <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2 focus:outline-none">
@@ -164,11 +168,6 @@
     <!-- Hero Section -->
     <section id="hero" class="relative z-10 pt-24 pb-20 md:pt-36 md:pb-32 flex items-center justify-center">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyber-700/40 border border-cyber-accent/30 text-cyber-accent text-xs md:text-sm font-mono-custom mb-6 neon-glow-cyan animate-pulse">
-                <span class="w-2 h-2 rounded-full bg-cyber-accent"></span>
-                <span>SYSTEM ONLINE // CREATOR & INNOVATOR</span>
-            </div>
-            
             <h1 class="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
                 Hi, I'm <span class="hero-gradient-text">Lav1n</span>
             </h1>
@@ -178,7 +177,7 @@
             </p>
             
             <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <a href="#inventions" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-accent to-blue-600 text-black font-bold font-mono-custom shadow-lg neon-glow-cyan hover:opacity-90 transition-all transform hover:-translate-y-0.5">
+                <a href="#inventions" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-accent to-purple-500 text-black font-bold font-mono-custom shadow-lg neon-glow-cyan hover:opacity-90 transition-all transform hover:-translate-y-0.5">
                     Explore Inventions <i class="fas fa-arrow-down ml-2"></i>
                 </a>
                 <a href="#socials" class="px-8 py-4 rounded-xl glass-panel text-white font-bold font-mono-custom hover:border-cyber-purple transition-all transform hover:-translate-y-0.5">
@@ -236,7 +235,7 @@
 
             <!-- Category Filter Tabs -->
             <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12">
-                <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all bg-cyber-accent text-black shadow-lg shadow-cyan-500/20" data-filter="all">
+                <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all bg-cyber-accent text-black shadow-lg shadow-purple-400/20" data-filter="all">
                     All Inventions
                 </button>
                 <button class="filter-btn px-5 py-2.5 rounded-xl font-mono-custom text-sm font-semibold transition-all glass-panel text-gray-300 hover:text-white" data-filter="discord">
@@ -260,7 +259,7 @@
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="discord" data-title="lav1n's utility bot discord bot management automation">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <img src="https://lavin0503.github.io/Lavin0503/Lubby%20Pfp.png" alt="Lav1n's Utility Bot Icon" class="w-12 h-12 rounded-xl object-cover border border-indigo-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/00f0ff?text=BOT'">
+                            <img src="https://lavin0503.github.io/Lavin0503/Lubby%20Pfp.png" alt="Lav1n's Utility Bot Icon" class="w-12 h-12 rounded-xl object-cover border border-indigo-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/c4a5ff?text=BOT'">
                             <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-mono-custom border border-indigo-500/20">Discord Bot</span>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Lav1n’s Utility Bot</h3>
@@ -280,7 +279,7 @@
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="lav1n's webhooks discord webhook tool manager">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <img src="https://lavin0503.github.io/Lav1nsWebhooks/STARFAVICON.png" alt="Lav1n's Webhooks Icon" class="w-12 h-12 rounded-xl object-cover border border-cyber-accent/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/00f0ff?text=HOOK'">
+                            <img src="https://lavin0503.github.io/Lav1nsWebhooks/STARFAVICON.png" alt="Lav1n's Webhooks Icon" class="w-12 h-12 rounded-xl object-cover border border-cyber-accent/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/c4a5ff?text=HOOK'">
                             <span class="px-3 py-1 rounded-full bg-cyber-accent/10 text-cyber-accent text-xs font-mono-custom border border-cyber-accent/20">Web App & Tool</span>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Lav1n’s Webhooks</h3>
@@ -466,28 +465,28 @@
                         </p>
                     </div>
                     <div>
-<div class="space-y-3">
-                        <a href="https://microsoftedge.microsoft.com/addons/detail/wave-floating-web-viewe/cdklkmbjnedmlmenecncokgpmgondign" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-teal-600/30 hover:bg-teal-600 text-teal-200 hover:text-white font-medium text-sm border border-teal-500/40 transition-colors">
-                            <i class="fab fa-edge mr-2"></i>
-                            <span>Microsoft Edge Add-ons</span>
-                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
-                        </a>
-                        <a href="https://addons.mozilla.org/en-US/firefox/addon/wave-floating-web-viewer/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-orange-600/30 hover:bg-orange-600 text-orange-200 hover:text-white font-medium text-sm border border-orange-500/40 transition-colors">
-                            <i class="fab fa-firefox-browser mr-2"></i>
-                            <span>Firefox Add-ons</span>
-                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
-                        </a>
-                        <a href="https://greasyfork.org/en/scripts/590044-wave-floating-web-viewer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-blue-600/30 hover:bg-blue-600 text-blue-200 hover:text-white font-medium text-sm border border-blue-500/40 transition-colors">
-                            <i class="fas fa-code mr-2"></i>
-                            <span>Tampermonkey (GreasyFork)</span>
-                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
-                        </a>
+                        <div class="space-y-3">
+                            <a href="https://microsoftedge.microsoft.com/addons/detail/wave-floating-web-viewe/cdklkmbjnedmlmenecncokgpmgondign" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-teal-600/30 hover:bg-teal-600 text-teal-200 hover:text-white font-medium text-sm border border-teal-500/40 transition-colors">
+                                <i class="fab fa-edge mr-2"></i>
+                                <span>Microsoft Edge Add-ons</span>
+                                <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                            </a>
+                            <a href="https://addons.mozilla.org/en-US/firefox/addon/wave-floating-web-viewer/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-orange-600/30 hover:bg-orange-600 text-orange-200 hover:text-white font-medium text-sm border border-orange-500/40 transition-colors">
+                                <i class="fab fa-firefox-browser mr-2"></i>
+                                <span>Firefox Add-ons</span>
+                                <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                            </a>
+                            <a href="https://greasyfork.org/en/scripts/590044-wave-floating-web-viewer" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-blue-600/30 hover:bg-blue-600 text-blue-200 hover:text-white font-medium text-sm border border-blue-500/40 transition-colors">
+                                <i class="fas fa-code mr-2"></i>
+                                <span>Tampermonkey (GreasyFork)</span>
+                                <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project: L1ve OS -->
-                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="l1ve os desktop exe draggable icons file manager taskbar app store">
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="l1ve os desktop exe dmg appimage windows mac linux draggable icons file manager taskbar app store">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lav1n.is-a.dev/L1ve-OS/logo.svg" alt="L1ve OS Icon" class="w-12 h-12 rounded-xl object-cover border border-pink-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/ff007f?text=L1'">
@@ -495,16 +494,41 @@
                         </div>
                         <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">L1ve OS</h3>
                         <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-                            L1VE OS is a free, install-free desktop exe, with draggable icons, a file manager, a taskbar, and an app store.
+                            L1VE OS is a free, install-free desktop app for Windows, macOS and Linux, with draggable icons, a file manager, a taskbar, and an app store.
                         </p>
                     </div>
                     <div class="space-y-3">
-                        <a href="https://github.com/Lavin0503/L1ve-OS/releases/download/v2.0.0/L1ve.OS.exe" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white font-medium text-sm border border-pink-500/40 transition-colors">
+                        <!-- href and label are set automatically by the OS-detection script below -->
+                        <a id="l1ve-download" href="https://github.com/Lavin0503/L1ve-OS/releases/download/v2.0.0/L1ve.OS.exe" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white font-medium text-sm border border-pink-500/40 transition-colors">
                             <i class="fas fa-download mr-2 text-xs"></i>
-                            <span>Download</span>
+                            <span id="l1ve-download-label">Download</span>
                         </a>
                         <a href="https://lav1n.is-a.dev/L1ve-OS/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white font-medium text-sm border border-pink-500/40 transition-colors">
                             <span>Open L1ve OS</span>
+                            <i class="fas fa-external-link-alt ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project: Oneko for Windows -->
+                <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="oneko for windows pixel cat desktop pet mouse chaser customizable exe">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <img src="https://lav1n.is-a.dev/Oneko-For-Windows/assets/oneko.ico" alt="Oneko for Windows Icon" class="w-12 h-12 rounded-xl object-cover border border-violet-400/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/c4a5ff?text=NEKO'">
+                            <span class="px-3 py-1 rounded-full bg-violet-400/10 text-violet-300 text-xs font-mono-custom border border-violet-400/20">Desktop App</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">Oneko for Windows</h3>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            A tiny pixel cat that chases your mouse around the screen. She never blocks a click, and she’s fully customizable.
+                        </p>
+                    </div>
+                    <div class="space-y-3">
+                        <a href="https://github.com/Lavin0503/Oneko-For-Windows/releases/latest/download/Oneko.exe" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-violet-500/30 hover:bg-violet-500 text-violet-200 hover:text-white font-medium text-sm border border-violet-400/40 transition-colors">
+                            <i class="fab fa-windows mr-2 text-xs"></i>
+                            <span>Download for Windows</span>
+                        </a>
+                        <a href="https://lav1n.is-a.dev/Oneko-For-Windows/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-violet-500/30 hover:bg-violet-500 text-violet-200 hover:text-white font-medium text-sm border border-violet-400/40 transition-colors">
+                            <span>Website</span>
                             <i class="fas fa-external-link-alt ml-2 text-xs"></i>
                         </a>
                     </div>
@@ -647,6 +671,39 @@
             });
         })();
 
+        // L1ve OS: auto-detect the visitor's OS and point the Download button at the right build
+        (function () {
+            const btn = document.getElementById('l1ve-download');
+            const label = document.getElementById('l1ve-download-label');
+            if (!btn || !label) return;
+
+            const base = 'https://github.com/Lavin0503/L1ve-OS/releases/download/v2.0.0/';
+            const builds = {
+                windows: { name: 'Windows', url: base + 'L1ve.OS.exe', icon: 'fa-windows', brand: true },
+                mac:     { name: 'macOS',   url: base + 'L1ve_OS_MacOS.dmg', icon: 'fa-apple', brand: true },
+                linux:   { name: 'Linux',   url: base + 'L1VE.OS.AppImage', icon: 'fa-linux', brand: true }
+            };
+
+            function detectOS() {
+                const uaData = navigator.userAgentData;
+                const platform = ((uaData && uaData.platform) || navigator.platform || '').toLowerCase();
+                const ua = (navigator.userAgent || '').toLowerCase();
+
+                // Phones/tablets can't run the desktop builds; fall back to Windows default
+                if (/android|iphone|ipad|ipod/.test(ua)) return 'windows';
+                if (platform.includes('win') || ua.includes('windows')) return 'windows';
+                if (platform.includes('mac') || ua.includes('macintosh')) return 'mac';
+                if (platform.includes('linux') || platform.includes('x11') || ua.includes('linux') || ua.includes('x11')) return 'linux';
+                return 'windows';
+            }
+
+            const os = builds[detectOS()];
+            btn.href = os.url;
+            label.textContent = 'Download for ' + os.name;
+            const icon = btn.querySelector('i');
+            if (icon) icon.className = 'fab ' + os.icon + ' mr-2 text-xs';
+        })();
+
         // Givevanced 24-hour countdown (fixed target: same for every visitor)
         (function () {
             const target = new Date('2026-10-25T11:45:00Z').getTime();
@@ -716,11 +773,11 @@
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 filterButtons.forEach(btn => {
-                    btn.classList.remove('bg-cyber-accent', 'text-black', 'shadow-lg', 'shadow-cyan-500/20');
+                    btn.classList.remove('bg-cyber-accent', 'text-black', 'shadow-lg', 'shadow-purple-400/20');
                     btn.classList.add('glass-panel', 'text-gray-300');
                 });
                 button.classList.remove('glass-panel', 'text-gray-300');
-                button.classList.add('bg-cyber-accent', 'text-black', 'shadow-lg', 'shadow-cyan-500/20');
+                button.classList.add('bg-cyber-accent', 'text-black', 'shadow-lg', 'shadow-purple-400/20');
 
                 currentCategory = button.getAttribute('data-filter');
                 filterProjects();
@@ -751,7 +808,7 @@
                 this.size = Math.random() * 2 + 1;
                 this.speedX = (Math.random() - 0.5) * 0.5;
                 this.speedY = (Math.random() - 0.5) * 0.5;
-                this.color = Math.random() > 0.5 ? '#00f0ff' : '#b000ff';
+                this.color = Math.random() > 0.5 ? '#c4a5ff' : '#b000ff';
             }
             update() {
                 this.x += this.speedX;
@@ -794,7 +851,7 @@
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
                     if (distance < 120) {
-                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - distance / 120)})`;
+                        ctx.strokeStyle = `rgba(196, 165, 255, ${0.15 * (1 - distance / 120)})`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
