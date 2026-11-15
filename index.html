@@ -99,11 +99,41 @@
             from { opacity: 0; transform: translateY(8px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
+        /* Top "coding since" strip */
+        #coding-since-bar {
+            position: relative;
+            z-index: 60;
+            background: linear-gradient(90deg, rgba(176,0,255,0.12), rgba(196,165,255,0.08));
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        /* Per-project GitHub badge: small circular link pinned to the card's top-right corner */
+        .project-card { position: relative; }
+        .gh-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 32px;
+            height: 32px;
+            z-index: 5;
+        }
     </style>
 </head>
 <body class="relative min-h-screen flex flex-col selection:bg-cyber-accent selection:text-black">
 
     <canvas id="bg-canvas"></canvas>
+
+    <!-- Coding-since strip (live count-up since Jan 28, 2022 03:43:39) -->
+    <div id="coding-since-bar" class="text-center py-2 px-4 text-xs sm:text-sm font-mono-custom text-cyber-accent/90">
+        <i class="fas fa-code mr-2"></i>Coding for
+        <span class="text-white font-semibold">
+            <span id="cs-y">0</span>y
+            <span id="cs-d">0</span>d
+            <span id="cs-h">00</span>h
+            <span id="cs-m">00</span>m
+            <span id="cs-s">00</span>s
+        </span>
+        and counting
+    </div>
 
     <!-- Wave Install Thank-You Overlay (shown only when arriving from the Wave extension install redirect) -->
     <div id="wave-thankyou-overlay" class="hidden fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 backdrop-blur-sm px-4">
@@ -152,6 +182,7 @@
                 <a href="https://github.com/Lavin0503" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-cyber-700/60 hover:bg-cyber-600/80 text-cyber-accent text-sm font-mono-custom border border-cyber-accent/30 transition-all shadow-lg hover:shadow-purple-400/20">
                     <i class="fab fa-github mr-2"></i> GitHub
                 </a>
+
                 <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2 focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
@@ -277,6 +308,7 @@
 
                 <!-- Project: Lav1n's Webhooks -->
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="lav1n's webhooks discord webhook tool manager">
+                    <a href="https://github.com/Lavin0503/Lav1nsWebhooks" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub"><i class="fab fa-github text-sm"></i></a>
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lavin0503.github.io/Lav1nsWebhooks/STARFAVICON.png" alt="Lav1n's Webhooks Icon" class="w-12 h-12 rounded-xl object-cover border border-cyber-accent/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/c4a5ff?text=HOOK'">
@@ -297,6 +329,7 @@
 
                 <!-- Project: Airport2Airport -->
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="airport2airport flight route airport connection tracker">
+                    <a href="https://github.com/Lavin0503/a2a" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub"><i class="fab fa-github text-sm"></i></a>
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lavin0503.github.io/Lavin0503/apple-icon.png" alt="Airport2Airport Icon" class="w-12 h-12 rounded-xl object-cover border border-cyan-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/00f0ff?text=A2A'">
@@ -374,6 +407,7 @@
 
                 <!-- Project: Magic Square -->
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web games" data-title="magic square puzzle math tool web app">
+                    <a href="https://github.com/Lavin0503/ms" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub"><i class="fab fa-github text-sm"></i></a>
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lavin0503.github.io/ms/2026_07_18_0i9_Kleki.png" alt="Magic Square Icon" class="w-12 h-12 rounded-xl object-cover border border-amber-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/f59e0b?text=MS'">
@@ -394,6 +428,7 @@
 
                 <!-- Project: Untitled Maths System (UMS) -->
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="games" data-title="untitled maths system ums math game puzzle">
+                    <a href="https://github.com/Lavin0503/ums" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub"><i class="fab fa-github text-sm"></i></a>
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lavin0503.github.io/ums/Screenshot%202026-04-26%20103644.png" alt="Untitled Maths System Icon" class="w-12 h-12 rounded-xl object-cover border border-emerald-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/10b981?text=UMS'">
@@ -487,6 +522,7 @@
 
                 <!-- Project: L1ve OS -->
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="l1ve os desktop exe dmg appimage windows mac linux draggable icons file manager taskbar app store">
+                    <a href="https://github.com/Lavin0503/L1ve-OS" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub"><i class="fab fa-github text-sm"></i></a>
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lav1n.is-a.dev/L1ve-OS/logo.svg" alt="L1ve OS Icon" class="w-12 h-12 rounded-xl object-cover border border-pink-500/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/ff007f?text=L1'">
@@ -512,6 +548,7 @@
 
                 <!-- Project: Oneko for Windows -->
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="oneko for windows pixel cat desktop pet mouse chaser customizable exe">
+                    <a href="https://github.com/Lavin0503/Oneko-For-Windows" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub"><i class="fab fa-github text-sm"></i></a>
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lav1n.is-a.dev/Oneko-For-Windows/assets/oneko.ico" alt="Oneko for Windows Icon" class="w-12 h-12 rounded-xl object-cover border border-violet-400/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/c4a5ff?text=NEKO'">
@@ -536,6 +573,7 @@
                 
                 <!-- Project: Patch -->
                 <div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group" data-category="web" data-title="patch badge maker badges readme shields github discord youtube live counts logos generator">
+                    <a href="https://github.com/Lavin0503/Patch" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub"><i class="fab fa-github text-sm"></i></a>
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <img src="https://lav1n.is-a.dev/Patch/patch-logo-1024.png" alt="Patch Icon" class="w-12 h-12 rounded-xl object-cover border border-indigo-400/30 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='https://placehold.co/48x48/1c1c42/7c5cff?text=P'">
@@ -689,6 +727,29 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') dismiss();
             });
+        })();
+
+        // Coding-since live count-up (fixed start: Jan 28, 2022 03:43:39 local-equivalent)
+        (function () {
+            const start = new Date('2022-01-28T03:43:39').getTime();
+            const yEl = document.getElementById('cs-y'), dEl = document.getElementById('cs-d');
+            const hEl = document.getElementById('cs-h'), mEl = document.getElementById('cs-m'), sEl = document.getElementById('cs-s');
+            if (!yEl) return;
+            const pad = n => String(n).padStart(2, '0');
+            function tick() {
+                let diff = Math.floor((Date.now() - start) / 1000);
+                const years = Math.floor(diff / 31536000); diff -= years * 31536000;
+                const days = Math.floor(diff / 86400); diff -= days * 86400;
+                const hours = Math.floor(diff / 3600); diff -= hours * 3600;
+                const mins = Math.floor(diff / 60); diff -= mins * 60;
+                yEl.textContent = years;
+                dEl.textContent = days;
+                hEl.textContent = pad(hours);
+                mEl.textContent = pad(mins);
+                sEl.textContent = pad(diff);
+            }
+            tick();
+            setInterval(tick, 1000);
         })();
 
         // L1ve OS: auto-detect the visitor's OS and point the Download button at the right build
