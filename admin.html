@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Lav1n — Project Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { darkMode: 'class', theme: { extend: { colors: { cyber: { 900:'#0a0a16', 800:'#12122b', 700:'#1c1c42', 600:'#2b2b63', accent:'#c4a5ff', purple:'#b000ff', pink:'#ff007f' } }, fontFamily: { sans: ['Inter','sans-serif'] } } } }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* same look as the site (needed so the live card preview matches) */
+  body{font-family:'Inter',sans-serif;background:#0a0a16;color:#f3f4f6;margin:0}
+  .font-mono-custom,.mono{font-family:'JetBrains Mono',monospace}
+  .glass-panel{background:rgba(18,18,43,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08)}
+  .glass-panel:hover{border-color:rgba(196,165,255,.3)}
+  .project-card{position:relative}
+  .gh-badge{position:absolute;top:-10px;right:-10px;width:32px;height:32px;z-index:5}
+
+  /* dashboard */
+  :root{--bg:#0a0a16;--panel:#12122b;--panel2:#171738;--line:rgba(255,255,255,.09);--acc:#c4a5ff;--muted:#9ca3af;--err:#f87171;--warn:#fbbf24;--ok:#34d399}
+  *{box-sizing:border-box}
+  .top{position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 18px;background:rgba(10,10,22,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .brand{font-weight:800;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .brand b{color:var(--acc)}
+  .chip{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .chip.dirty{color:var(--warn);border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
+  .chip.clean{color:var(--ok);border-color:rgba(52,211,153,.35)}
+  .sp{flex:1}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:#e5e7eb;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+  .btn:hover{border-color:rgba(196,165,255,.5);background:#1d1d45}
+  .btn.primary{background:linear-gradient(135deg,#c4a5ff,#8b5cf6);color:#0a0a16;border-color:transparent}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.danger{color:#fca5a5}.btn.danger:hover{border-color:rgba(248,113,113,.6);background:rgba(248,113,113,.1)}
+  .btn.sm{padding:5px 9px;font-size:12px;border-radius:8px}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .layout{display:grid;grid-template-columns:300px minmax(0,1fr) 380px;gap:16px;padding:16px 18px;align-items:start;max-width:1700px;margin:0 auto}
+  .col-sticky{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px}
+  .list-head{padding:12px;border-bottom:1px solid var(--line);display:flex;gap:8px}
+  .list-body{padding:8px;display:flex;flex-direction:column;gap:6px}
+  .row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;border:1px solid transparent;background:rgba(255,255,255,.02);cursor:pointer}
+  .row:hover{background:rgba(196,165,255,.06)}
+  .row.sel{border-color:rgba(196,165,255,.55);background:rgba(196,165,255,.1)}
+  .row.dim{opacity:.55}
+  .row.over{outline:2px dashed var(--acc)}
+  .row img{width:34px;height:34px;border-radius:9px;object-fit:cover;background:#1c1c42;flex:none}
+  .row .t{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .row .s{font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:center}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .grab{color:#6b7280;cursor:grab;font-size:12px}
+  .arrows{display:flex;flex-direction:column;gap:2px}
+  .arrows button{background:none;border:0;color:#6b7280;cursor:pointer;font-size:10px;line-height:1;padding:2px 4px}
+  .arrows button:hover{color:var(--acc)}
+  .badge{font-size:10px;padding:1px 6px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+  .badge.err{color:var(--err);border-color:rgba(248,113,113,.4)}.badge.warn{color:var(--warn);border-color:rgba(251,191,36,.4)}
+  .sec{padding:16px;border-bottom:1px solid var(--line)}
+  .sec:last-child{border-bottom:0}
+  .sec h3{margin:0 0 12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);font-family:'JetBrains Mono',monospace}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .fld{display:flex;flex-direction:column;gap:5px;min-width:0;margin-bottom:12px}
+  .fld:last-child{margin-bottom:0}
+  .g2 .fld,.g3 .fld{margin-bottom:0}
+  .lbl{font-size:12px;font-weight:600;color:#d1d5db}
+  .hint{font-size:11px;color:var(--muted)}
+  .inp{width:100%;background:#0d0d24;border:1px solid var(--line);border-radius:10px;padding:9px 11px;color:#f3f4f6;font-size:14px;outline:none;font-family:inherit}
+  .inp:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(196,165,255,.15)}
+  textarea.inp{min-height:110px;resize:vertical;line-height:1.5}
+  select.inp{appearance:auto}
+  .chk{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:#d1d5db;cursor:pointer;user-select:none}
+  .chk input{accent-color:#c4a5ff;width:15px;height:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px 14px}
+  .swatches{display:flex;flex-wrap:wrap;gap:8px}
+  .sw{width:30px;height:30px;border-radius:9px;border:2px solid transparent;cursor:pointer;outline:none}
+  .sw.on{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
+  .brow{display:grid;grid-template-columns:1.1fr 1.6fr 1.1fr 120px auto;gap:8px;align-items:end;padding:10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);margin-bottom:8px}
+  .brow .opts{grid-column:1/-1;display:flex;gap:16px;flex-wrap:wrap}
+  .brow .fld{margin:0}
+  .brow .ctl{display:flex;gap:4px}
+  .issues{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+  .issue{font-size:12px;display:flex;gap:8px;align-items:center}
+  .issue.error{color:var(--err)}.issue.warn{color:var(--warn)}
+  .empty{padding:40px;text-align:center;color:var(--muted)}
+  .preview-wrap{padding:26px 22px 22px}
+  .preview-note{margin:0 16px 14px;padding:8px 10px;border-radius:10px;font-size:12px;color:var(--warn);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3)}
+  .modal-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:18px}
+  .modal{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid rgba(196,165,255,.25);border-radius:18px}
+  .modal header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);font-weight:700}
+  .modal .body{padding:18px}
+  .modal footer{display:flex;justify-content:flex-end;gap:8px;padding:14px 18px;border-top:1px solid var(--line)}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:200;padding:11px 16px;border-radius:12px;background:#1d1d45;border:1px solid rgba(196,165,255,.4);font-size:13px;max-width:90vw;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  .toast.err{border-color:rgba(248,113,113,.6);color:#fecaca}.toast.ok{border-color:rgba(52,211,153,.5)}
+  .banner{margin:12px 18px 0;padding:10px 14px;border-radius:12px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.35);font-size:13px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-width:1664px}
+  code.k{background:#0d0d24;padding:1px 5px;border-radius:5px;color:var(--acc);font-size:12px}
+  pre.json{background:#0d0d24;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12px;overflow:auto;max-height:50vh}
+  @media (max-width:1250px){.layout{grid-template-columns:280px minmax(0,1fr)}.col-prev{grid-column:1/-1}.col-sticky.col-prev{position:static;max-height:none}}
+  @media (max-width:800px){.layout{grid-template-columns:1fr}.col-sticky{position:static;max-height:none}.g2,.g3{grid-template-columns:1fr}.brow{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="brand"><i class="fas fa-sliders" style="color:#c4a5ff"></i><span>Lav1n <b>Dashboard</b></span></div>
+  <span id="status" class="chip">Loading…</span>
+  <div class="sp"></div>
+  <button class="btn" id="b-new"><i class="fas fa-plus"></i> New project</button>
+  <button class="btn" id="b-import" title="Load a projects.json from your computer"><i class="fas fa-file-import"></i> Import</button>
+  <button class="btn" id="b-raw" title="View / edit the raw JSON"><i class="fas fa-code"></i> JSON</button>
+  <button class="btn" id="b-export" title="Download projects.json"><i class="fas fa-download"></i> Download</button>
+  <a class="btn" href="index.html" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Site</a>
+  <button class="btn" id="b-settings" title="GitHub connection"><i class="fab fa-github"></i></button>
+  <button class="btn primary" id="b-publish"><i class="fas fa-cloud-arrow-up"></i> Publish</button>
+  <input type="file" id="file" accept=".json,application/json" hidden>
+</div>
+
+<div id="draft"></div>
+
+<div class="layout">
+  <aside class="panel col-sticky" id="listpanel">
+    <div class="list-head"><input class="inp" id="q" placeholder="Search projects…"></div>
+    <div class="list-body" id="list"></div>
+  </aside>
+  <main class="panel" id="editor"></main>
+  <aside class="panel col-sticky col-prev" id="prevpanel">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)" class="mono">Live preview</div>
+    <div id="prevnote"></div>
+    <div class="preview-wrap"><div id="preview"></div></div>
+  </aside>
+</div>
+
+<script>
+(function () {
+'use strict';
+
+
+        // ---- Colour palettes. Every class is written out in full so it can also live in the
+        //      #tw-safelist element (Tailwind CDN only generates classes it can see in the DOM).
+        var PALETTE = {
+            'indigo':       { img: 'border-indigo-500/30',  pill: 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20',   btn: 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20' },
+            'indigo-light': { img: 'border-indigo-400/30',  pill: 'bg-indigo-400/10 text-indigo-300 border border-indigo-400/20',   btn: 'bg-indigo-500/30 hover:bg-indigo-500 text-indigo-200 hover:text-white border border-indigo-400/40' },
+            'amber':        { img: 'border-amber-500/30',   pill: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',       btn: 'bg-amber-600/30 hover:bg-amber-600 text-amber-200 hover:text-white border border-amber-500/40' },
+            'cyan':         { img: 'border-cyan-500/30',    pill: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',          btn: 'bg-cyan-600/30 hover:bg-cyan-600 text-cyan-200 hover:text-white border border-cyan-500/40' },
+            'emerald':      { img: 'border-emerald-500/30', pill: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20', btn: 'bg-emerald-600/30 hover:bg-emerald-600 text-emerald-200 hover:text-white border border-emerald-500/40' },
+            'yellow':       { img: 'border-yellow-500/30',  pill: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20',    btn: 'bg-yellow-600/30 hover:bg-yellow-600 text-yellow-200 hover:text-white border border-yellow-500/40' },
+            'purple':       { img: 'border-purple-500/30',  pill: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',    btn: 'bg-purple-600/30 hover:bg-purple-600 text-purple-200 hover:text-white border border-purple-500/40' },
+            'blue':         { img: 'border-blue-500/30',    pill: 'bg-blue-500/10 text-blue-400 border border-blue-500/20',          btn: 'bg-blue-600/30 hover:bg-blue-600 text-blue-200 hover:text-white border border-blue-500/40' },
+            'teal':         { img: 'border-teal-500/30',    pill: 'bg-teal-500/10 text-teal-400 border border-teal-500/20',          btn: 'bg-teal-600/30 hover:bg-teal-600 text-teal-200 hover:text-white border border-teal-500/40' },
+            'orange':       { img: 'border-orange-500/30',  pill: 'bg-orange-500/10 text-orange-400 border border-orange-500/20',    btn: 'bg-orange-600/30 hover:bg-orange-600 text-orange-200 hover:text-white border border-orange-500/40' },
+            'pink':         { img: 'border-pink-500/30',    pill: 'bg-pink-500/10 text-pink-400 border border-pink-500/20',          btn: 'bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white border border-pink-500/40' },
+            'violet':       { img: 'border-violet-400/30',  pill: 'bg-violet-400/10 text-violet-300 border border-violet-400/20',    btn: 'bg-violet-500/30 hover:bg-violet-500 text-violet-200 hover:text-white border border-violet-400/40' },
+            'accent':       { img: 'border-cyber-accent/30', pill: 'bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/20', btn: 'bg-cyber-700 hover:bg-cyber-600 text-cyber-accent border border-cyber-accent/30' }
+        };
+
+        function paletteKey(color, shade) {
+            var c = String(color || 'accent').toLowerCase();
+            if (c === 'cyber') c = 'accent';
+            if (shade === 'light' && PALETTE[c + '-light']) return c + '-light';
+            return PALETTE[c] ? c : 'accent';
+        }
+
+        // ---- Helpers -------------------------------------------------------------
+        function esc(s) {
+            return String(s == null ? '' : s)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        function safeUrl(u) {
+            u = String(u || '').trim();
+            return /^(https?:\/\/|mailto:|\/|\.\/|\.\.\/|#)/i.test(u) || /^[\w.-]+(\/|$)/.test(u) && !/^[a-z][a-z0-9+.-]*:/i.test(u) ? u : '#';
+        }
+        function asList(v) {
+            if (Array.isArray(v)) return v.map(String);
+            return v ? String(v).split(/\s+/) : [];
+        }
+        function plainText(text) {
+            return String(text || '')
+                .replace(/`([^`]+)`/g, '$1')
+                .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1');
+        }
+
+        // Small safe markup: [text](url) and `code`. Everything else is escaped.
+        function renderDescription(text) {
+            var re = /`([^`]+)`|\[([^\]]+)\]\(([^)\s]+)\)/g;
+            var out = '', last = 0, marked = false, m;
+            text = String(text || '');
+            while ((m = re.exec(text))) {
+                out += esc(text.slice(last, m.index));
+                if (m[1] !== undefined) {
+                    out += '<code class="text-cyber-accent bg-cyber-900 px-1 py-0.5 rounded">' + esc(m[1]) + '</code>';
+                } else {
+                    out += '<a href="' + esc(safeUrl(m[3])) + '" target="_blank" rel="noopener noreferrer" class="text-cyber-accent underline">' + esc(m[2]) + '</a>';
+                }
+                marked = true;
+                last = re.lastIndex;
+            }
+            out += esc(text.slice(last));
+            return { html: out, marked: marked };
+        }
+
+        // ---- Markup builders (same classes as the old static cards) ----------------
+        function iconTag(icon, pos) {
+            if (!icon) return '';
+            return '<i class="' + esc(icon) + (pos === 'right' ? ' ml-2 text-xs' : ' mr-2') + '" aria-hidden="true"></i>';
+        }
+        function buttonClass(key) {
+            return 'inline-flex items-center justify-center w-full py-3 px-4 rounded-xl font-medium text-sm transition-colors ' + PALETTE[key].btn;
+        }
+        function buttonHtml(b, project) {
+            var key = b.color ? paletteKey(b.color, b.shade) : paletteKey(project.color, project.shade);
+            var newTab = b.newTab !== false;
+            // "icon" is the leading icon. A trailing external-link arrow is added for new-tab links
+            // (turn it off with "externalIcon": false). Passing fa-external-link-alt as "icon" is fine too.
+            var lead = b.icon && !/fa-external-link-alt/.test(b.icon) ? b.icon : '';
+            var trail = newTab && b.externalIcon !== false ? 'fas fa-external-link-alt' : '';
+            return '<a href="' + esc(safeUrl(b.url)) + '"' + (newTab ? ' target="_blank"' : '') + ' rel="noopener noreferrer" class="' + buttonClass(key) + '">' +
+                iconTag(lead, 'left') +
+                '<span>' + esc(b.label) + '</span>' +
+                iconTag(trail, 'right') +
+                '</a>';
+        }
+        function buttonsHtml(list, project, extraFirst) {
+            var items = (extraFirst ? [extraFirst] : []).concat((list || []).filter(function (b) { return b && b.label && b.url; }).map(function (b) { return buttonHtml(b, project); }));
+            return items.join('');
+        }
+        function osDownloadHtml(project) {
+            var key = paletteKey(project.color, project.shade);
+            var os = project.osDownload || {};
+            return '<a data-os-download href="' + esc(safeUrl((os.baseUrl || '') + (os.windows || ''))) + '" rel="noopener noreferrer" class="' + buttonClass(key) + '">' +
+                '<i class="fas fa-download mr-2 text-xs" data-os-icon aria-hidden="true"></i>' +
+                '<span data-os-label>Download</span></a>';
+        }
+        function countdownHtml(project) {
+            var cd = project.countdown || {};
+            return '<div data-countdown="' + esc(cd.launchAt) + '" aria-live="polite" class="w-full py-4 px-4 rounded-xl bg-amber-600/10 border border-dashed border-amber-500/40 text-center select-none">' +
+                '<div class="text-amber-300/80 text-xs font-mono-custom mb-2"><i class="fas fa-clock mr-2" aria-hidden="true"></i>Launching in</div>' +
+                '<div class="flex justify-center items-center gap-2 font-mono-custom text-amber-200">' +
+                '<div><span data-cd="h" class="text-2xl font-bold">24</span><span class="block text-[10px] text-amber-300/60">HRS</span></div>' +
+                '<span class="text-xl font-bold pb-4">:</span>' +
+                '<div><span data-cd="m" class="text-2xl font-bold">00</span><span class="block text-[10px] text-amber-300/60">MIN</span></div>' +
+                '<span class="text-xl font-bold pb-4">:</span>' +
+                '<div><span data-cd="s" class="text-2xl font-bold">00</span><span class="block text-[10px] text-amber-300/60">SEC</span></div>' +
+                '</div></div>' +
+                '<div data-countdown-buttons class="hidden space-y-3">' + buttonsHtml(cd.buttons, project) + '</div>';
+        }
+
+        function cardHtml(p) {
+            var key = paletteKey(p.color, p.shade);
+            var pal = PALETTE[key];
+            var cats = asList(p.categories).map(function (c) { return c.toLowerCase().replace(/[^a-z0-9_-]/g, ''); }).filter(Boolean);
+            var desc = renderDescription(p.description);
+            var searchTitle = [p.title, p.tag].concat(asList(p.keywords)).join(' ').toLowerCase().replace(/[\u2018\u2019]/g, "'");
+            var fbHex = /^#?[0-9a-f]{3,6}$/i.test(p.iconFallbackColor || '') ? String(p.iconFallbackColor).replace('#', '') : 'c4a5ff';
+            var fbUrl = 'https://placehold.co/48x48/1c1c42/' + fbHex + '?text=' + encodeURIComponent(p.iconFallback || String(p.title).slice(0, 3).toUpperCase());
+
+            var bottom;
+            if (p.special === 'countdown' && p.countdown) {
+                bottom = '<div>' + countdownHtml(p) + '</div>';
+            } else {
+                var first = p.special === 'osDownload' && p.osDownload ? osDownloadHtml(p) : '';
+                var list = (p.buttons || []).filter(function (b) { return b && b.label && b.url; });
+                var multi = list.length + (first ? 1 : 0) > 1;
+                bottom = '<div' + (multi ? ' class="space-y-3"' : '') + '>' + buttonsHtml(list, p, first) + '</div>';
+            }
+
+            var gh = p.github
+                ? '<a href="' + esc(safeUrl(p.github)) + '" target="_blank" rel="noopener noreferrer" class="gh-badge flex items-center justify-center rounded-full bg-cyber-900 border border-cyber-accent/50 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-colors shadow-lg" title="View on GitHub" aria-label="' + esc(p.title) + ' on GitHub"><i class="fab fa-github text-sm" aria-hidden="true"></i></a>'
+                : '';
+
+            return '<div class="project-card glass-panel rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 group"' +
+                ' data-id="' + esc(p.id) + '" data-category="' + esc(cats.join(' ')) + '" data-title="' + esc(searchTitle) + '" data-desc="' + esc(plainText(p.description).toLowerCase()) + '">' +
+                gh +
+                '<div><div class="flex items-center justify-between mb-4">' +
+                '<img src="' + esc(safeUrl(p.icon)) + '" alt="' + esc(String(p.title).replace(/[\u2018\u2019]/g, "'")) + ' Icon" data-fallback="' + esc(fbUrl) + '" class="w-12 h-12 rounded-xl object-cover border ' + pal.img + ' shadow-md group-hover:scale-105 transition-transform">' +
+                '<span class="px-3 py-1 rounded-full ' + pal.pill + ' text-xs font-mono-custom">' + esc(p.tag) + '</span></div>' +
+                '<h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyber-accent transition-colors">' + esc(p.title) + '</h3>' +
+                '<p class="text-gray-400 text-sm ' + (desc.marked ? 'mb-4' : 'mb-6') + ' leading-relaxed">' + desc.html + '</p></div>' +
+                bottom + '</div>';
+        }
+
+// ================= dashboard =================
+var COLORS = Object.keys(PALETTE).filter(function (k) { return !/-light$/.test(k); });
+var CATS = [['discord', 'Discord Bots'], ['web', 'Web Apps & Tools'], ['games', 'Games'], ['browser', 'Browser Ext / Userscripts']];
+var SWATCH = { indigo: '#818cf8', amber: '#fbbf24', cyan: '#22d3ee', emerald: '#34d399', yellow: '#facc15', purple: '#c084fc', blue: '#60a5fa', teal: '#2dd4bf', orange: '#fb923c', pink: '#f472b6', violet: '#a78bfa', accent: '#c4a5ff' };
+var ICONS = ['fas fa-external-link-alt', 'fas fa-download', 'fab fa-windows text-xs', 'fab fa-apple', 'fab fa-linux', 'fab fa-github', 'fab fa-discord', 'fab fa-edge', 'fab fa-firefox-browser', 'fab fa-chrome', 'fas fa-code', 'fas fa-play', 'fas fa-gamepad', 'fas fa-book'];
+var DRAFT_KEY = 'lav1n-admin-draft', GH_KEY = 'lav1n-admin-gh';
+
+var data = { projects: [] }, sel = -1, baseline = '', dragFrom = -1;
+var $ = function (s) { return document.querySelector(s); };
+
+function el(tag, attrs) {
+    var e = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+        var v = attrs[k];
+        if (k === 'checked') { e.checked = !!v; return; }
+        if (k === 'value') { e.value = v == null ? '' : v; return; }
+        if (v == null || v === false) return;
+        if (k === 'class') e.className = v;
+        else if (k === 'style') e.style.cssText = v;
+        else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), v);
+        else if (v === true) e.setAttribute(k, '');
+        else e.setAttribute(k, v);
+    });
+    Array.prototype.slice.call(arguments, 2).forEach(function add(c) {
+        if (c == null || c === false) return;
+        if (Array.isArray(c)) return c.forEach(add);
+        e.append(c.nodeType ? c : document.createTextNode(c));
+    });
+    return e;
+}
+
+// ---------- data helpers ----------
+function normBtn(b) { b = b || {}; return { label: b.label || '', url: b.url || '', icon: b.icon || '', color: b.color || '', newTab: b.newTab !== false, externalIcon: b.externalIcon !== false }; }
+function normalize(j) {
+    var list = (j && Array.isArray(j.projects)) ? j.projects : [];
+    return { projects: list.map(function (p) {
+        var cd = p.countdown || {}, os = p.osDownload || {};
+        return {
+            id: p.id || '', title: p.title || '', description: p.description || '',
+            categories: Array.isArray(p.categories) ? p.categories.slice() : [],
+            keywords: Array.isArray(p.keywords) ? p.keywords.join(' ') : (p.keywords || ''),
+            tag: p.tag || '', color: p.color || 'accent', shade: p.shade === 'light' ? 'light' : '',
+            icon: p.icon || '', iconFallback: p.iconFallback || '', iconFallbackColor: p.iconFallbackColor || '',
+            github: p.github || '', hidden: p.hidden === true,
+            buttons: (p.buttons || []).map(normBtn),
+            special: p.special === 'countdown' || p.special === 'osDownload' ? p.special : '',
+            countdown: { launchAt: cd.launchAt || '', buttons: (cd.buttons || []).map(normBtn) },
+            osDownload: { baseUrl: os.baseUrl || '', windows: os.windows || '', mac: os.mac || '', linux: os.linux || '' }
+        };
+    }) };
+}
+function cleanBtn(b) {
+    var o = { label: b.label || '', url: b.url || '' };
+    if (b.icon) o.icon = b.icon;
+    if (b.color) o.color = b.color;
+    if (b.newTab === false) o.newTab = false;
+    if (b.externalIcon === false) o.externalIcon = false;
+    return o;
+}
+function clean(p) {
+    var o = { id: p.id || '', title: p.title || '', description: p.description || '', categories: (p.categories || []).slice() };
+    if (p.keywords && p.keywords.trim()) o.keywords = p.keywords.trim();
+    o.tag = p.tag || ''; o.color = p.color || 'accent';
+    if (p.shade === 'light' && PALETTE[o.color + '-light']) o.shade = 'light';
+    o.icon = p.icon || '';
+    if (p.iconFallback) o.iconFallback = p.iconFallback;
+    if (p.iconFallbackColor) o.iconFallbackColor = p.iconFallbackColor;
+    if (p.github) o.github = p.github;
+    o.buttons = (p.buttons || []).map(cleanBtn);
+    if (p.special === 'countdown') { o.special = 'countdown'; o.countdown = { launchAt: p.countdown.launchAt, buttons: p.countdown.buttons.map(cleanBtn) }; }
+    if (p.special === 'osDownload') {
+        o.special = 'osDownload'; o.osDownload = { baseUrl: p.osDownload.baseUrl };
+        ['windows', 'mac', 'linux'].forEach(function (k) { if (p.osDownload[k]) o.osDownload[k] = p.osDownload[k]; });
+    }
+    if (p.hidden) o.hidden = true;
+    return o;
+}
+function jsonText() { return JSON.stringify({ projects: data.projects.map(clean) }, null, 2) + '\n'; }
+
+function validUrl(u) { u = String(u || '').trim(); return u && (/^(https?:\/\/|mailto:|\/|\.\/|\.\.\/|#)/i.test(u) || !/^[a-z][a-z0-9+.-]*:/i.test(u)); }
+function issues(p, i) {
+    var out = [];
+    function err(m) { out.push({ l: 'error', m: m }); }
+    function warn(m) { out.push({ l: 'warn', m: m }); }
+    if (!p.id) err('Missing ID'); else if (data.projects.some(function (q, j) { return j !== i && q.id === p.id; })) err('Duplicate ID “' + p.id + '” — IDs must be unique');
+    if (!p.title) err('Missing title');
+    if (!p.tag) warn('Missing tag (the coloured pill text)');
+    if (!p.icon) warn('Missing icon URL');
+    if (!p.categories.length) warn('No category selected — it only shows under “All Inventions”');
+    var btns = p.special === 'countdown' ? p.countdown.buttons : p.buttons;
+    btns.forEach(function (b, k) {
+        if (!b.label || !b.url) err('Button ' + (k + 1) + ' needs a label and a URL');
+        else if (!validUrl(b.url)) warn('Button ' + (k + 1) + ' URL looks odd');
+    });
+    if (p.special === 'countdown' && isNaN(Date.parse(p.countdown.launchAt))) err('Countdown needs a valid launch date (e.g. 2026-10-25T11:45:00Z)');
+    if (p.special === 'osDownload') {
+        if (!p.osDownload.baseUrl) err('OS download needs a base URL');
+        if (!p.osDownload.windows && !p.osDownload.mac && !p.osDownload.linux) err('OS download needs at least one file name');
+    }
+    return out;
+}
+function hasErrors() { return data.projects.some(function (p, i) { return issues(p, i).some(function (x) { return x.l === 'error'; }); }); }
+
+// ---------- change tracking ----------
+function changed() {
+    try { localStorage.setItem(DRAFT_KEY, jsonText()); } catch (e) {}
+    updateStatus(); renderList(); renderIssues(); renderPreview();
+}
+function updateStatus() {
+    var dirty = jsonText() !== baseline, s = $('#status');
+    s.className = 'chip ' + (dirty ? 'dirty' : 'clean');
+    s.textContent = dirty ? 'Unsaved changes' : 'Matches published file';
+}
+window.addEventListener('beforeunload', function (e) { if (jsonText() !== baseline) { e.preventDefault(); e.returnValue = ''; } });
+
+function toast(msg, kind) {
+    var t = el('div', { class: 'toast ' + (kind || '') }, msg);
+    document.body.append(t);
+    setTimeout(function () { t.remove(); }, kind === 'err' ? 7000 : 3500);
+}
+function modal(title, body, actions) {
+    var bg = el('div', { class: 'modal-bg' });
+    function close() { bg.remove(); }
+    var foot = el('footer', {}, actions ? actions(close) : [el('button', { class: 'btn', onclick: close }, 'Close')]);
+    var m = el('div', { class: 'modal' },
+        el('header', {}, el('span', {}, title), el('button', { class: 'btn sm', onclick: close }, '✕')),
+        el('div', { class: 'body' }, body), foot);
+    bg.addEventListener('mousedown', function (e) { if (e.target === bg) close(); });
+    bg.append(m); document.body.append(bg);
+    return close;
+}
+
+// ---------- project list ----------
+function select(i) { sel = i; renderEditor(); renderList(); renderPreview(); }
+function move(i, j) {
+    if (j < 0 || j >= data.projects.length || i === j) return;
+    var item = data.projects.splice(i, 1)[0];
+    data.projects.splice(j, 0, item);
+    if (sel === i) sel = j; else if (i < sel && j >= sel) sel--; else if (i > sel && j <= sel) sel++;
+    changed();
+}
+function renderList() {
+    var q = $('#q').value.toLowerCase().trim(), list = $('#list');
+    list.innerHTML = '';
+    data.projects.forEach(function (p, i) {
+        if (q && (p.title + ' ' + p.id + ' ' + p.tag + ' ' + p.keywords).toLowerCase().indexOf(q) < 0) return;
+        var iss = issues(p, i), errs = iss.filter(function (x) { return x.l === 'error'; }).length;
+        var row = el('div', { class: 'row' + (i === sel ? ' sel' : '') + (p.hidden ? ' dim' : ''), draggable: 'true', title: 'Drag to reorder',
+            onclick: function () { select(i); },
+            ondragstart: function (e) { dragFrom = i; e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', String(i)); } catch (x) {} },
+            ondragover: function (e) { e.preventDefault(); row.classList.add('over'); },
+            ondragleave: function () { row.classList.remove('over'); },
+            ondrop: function (e) { e.preventDefault(); row.classList.remove('over'); if (dragFrom > -1) move(dragFrom, i); dragFrom = -1; }
+        },
+            el('i', { class: 'fas fa-grip-vertical grab' }),
+            el('img', { src: p.icon || 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==', alt: '', onerror: function () { this.style.visibility = 'hidden'; } }),
+            el('div', { style: 'min-width:0;flex:1' },
+                el('div', { class: 't' }, p.title || '(untitled)'),
+                el('div', { class: 's' }, el('span', { class: 'dot', style: 'background:' + (SWATCH[p.color] || '#c4a5ff') }), p.tag || '—',
+                    p.hidden ? el('span', { class: 'badge' }, 'hidden') : null,
+                    errs ? el('span', { class: 'badge err' }, errs + ' issue' + (errs > 1 ? 's' : '')) : null)),
+            el('div', { class: 'arrows' },
+                el('button', { title: 'Move up', onclick: function (e) { e.stopPropagation(); move(i, i - 1); } }, '▲'),
+                el('button', { title: 'Move down', onclick: function (e) { e.stopPropagation(); move(i, i + 1); } }, '▼')));
+        list.append(row);
+    });
+    if (!list.children.length) list.append(el('div', { class: 'empty' }, data.projects.length ? 'No matches' : 'No projects yet'));
+}
+
+function addProject() {
+    var n = 1; while (data.projects.some(function (p) { return p.id === 'new-project-' + n; })) n++;
+    data.projects.push(normalize({ projects: [{ id: 'new-project-' + n, title: 'New project', description: '', categories: ['web'], tag: 'Web App & Tool', color: 'accent', icon: '', buttons: [{ label: 'Open', url: 'https://', icon: 'fas fa-external-link-alt' }] }] }).projects[0]);
+    sel = data.projects.length - 1;
+    changed(); renderEditor();
+    var t = $('#editor input'); if (t) { t.focus(); t.select(); }
+    $('#list').lastElementChild && $('#list').lastElementChild.scrollIntoView({ block: 'nearest' });
+}
+
+// ---------- editor ----------
+function field(label, hint, input) { return el('label', { class: 'fld' }, el('span', { class: 'lbl' }, label), input, hint ? el('span', { class: 'hint' }, hint) : null); }
+function txt(obj, key, o) {
+    o = o || {};
+    return el('input', { class: 'inp', type: o.type || 'text', list: o.list, value: obj[key], placeholder: o.ph || '',
+        oninput: function (e) { obj[key] = e.target.value; if (o.after) o.after(); changed(); } });
+}
+function sec(title) { return el('section', { class: 'sec' }, el('h3', {}, title), Array.prototype.slice.call(arguments, 1)); }
+function slug(s) { return String(s).toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+
+function btnEditor(arr) {
+    var wrap = el('div');
+    function draw() {
+        wrap.innerHTML = '';
+        arr.forEach(function (b, i) {
+            var colorSel = el('select', { class: 'inp', onchange: function (e) { b.color = e.target.value; changed(); } },
+                el('option', { value: '' }, 'Project colour'),
+                COLORS.map(function (c) { return el('option', { value: c, selected: b.color === c }, c); }));
+            wrap.append(el('div', { class: 'brow' },
+                field('Label', null, txt(b, 'label', { ph: 'Open app' })),
+                field('URL', null, txt(b, 'url', { ph: 'https://…' })),
+                field('Icon (FontAwesome)', null, txt(b, 'icon', { list: 'icons', ph: 'fas fa-external-link-alt' })),
+                field('Colour', null, colorSel),
+                el('div', { class: 'ctl' },
+                    el('button', { class: 'btn sm', title: 'Up', onclick: function () { if (i > 0) { arr.splice(i - 1, 0, arr.splice(i, 1)[0]); draw(); changed(); } } }, '▲'),
+                    el('button', { class: 'btn sm', title: 'Down', onclick: function () { if (i < arr.length - 1) { arr.splice(i + 1, 0, arr.splice(i, 1)[0]); draw(); changed(); } } }, '▼'),
+                    el('button', { class: 'btn sm danger', title: 'Remove', onclick: function () { arr.splice(i, 1); draw(); changed(); } }, '✕')),
+                el('div', { class: 'opts' },
+                    el('label', { class: 'chk' }, el('input', { type: 'checkbox', checked: b.newTab, onchange: function (e) { b.newTab = e.target.checked; changed(); } }), 'Open in new tab'),
+                    el('label', { class: 'chk' }, el('input', { type: 'checkbox', checked: b.externalIcon, onchange: function (e) { b.externalIcon = e.target.checked; changed(); } }), 'Show ↗ arrow'))));
+        });
+        wrap.append(el('button', { class: 'btn sm', onclick: function () { arr.push(normBtn({ label: 'Open', url: 'https://', icon: 'fas fa-external-link-alt' })); draw(); changed(); } }, '+ Add button'));
+    }
+    draw();
+    return wrap;
+}
+
+function renderEditor() {
+    var host = $('#editor'); host.innerHTML = '';
+    var p = data.projects[sel];
+    if (!p) { host.append(el('div', { class: 'empty' }, 'Pick a project on the left, or click “New project”.')); return; }
+
+    host.append(el('div', { id: 'issues', class: 'issues' }));
+
+    var idInput = txt(p, 'id', { ph: 'my-project' });
+    host.append(sec('Basics',
+        el('div', { class: 'g2' },
+            field('Title', null, txt(p, 'title', { ph: 'My Project' })),
+            field('ID', 'Unique, lowercase, no spaces', el('div', { style: 'display:flex;gap:6px' }, idInput,
+                el('button', { class: 'btn sm', title: 'Make from title', onclick: function () { p.id = slug(p.title); idInput.value = p.id; changed(); } }, 'Auto')))),
+        el('div', { style: 'height:12px' }),
+        field('Description', 'Use `code` for code and [text](https://link) for links. Everything else is plain text.',
+            el('textarea', { class: 'inp', value: p.description, oninput: function (e) { p.description = e.target.value; changed(); } })),
+        field('Show under these filter tabs', null, el('div', { class: 'chips' }, CATS.map(function (c) {
+            return el('label', { class: 'chk' }, el('input', { type: 'checkbox', checked: p.categories.indexOf(c[0]) > -1, onchange: function (e) {
+                var s = p.categories.filter(function (x) { return x !== c[0]; });
+                if (e.target.checked) s.push(c[0]);
+                p.categories = CATS.map(function (x) { return x[0]; }).filter(function (x) { return s.indexOf(x) > -1; });
+                changed();
+            } }), c[1]);
+        }))),
+        field('Extra search keywords', 'Optional. Search already matches title, tag and description.', txt(p, 'keywords', { ph: 'tool manager tracker' }))));
+
+    var tags = []; data.projects.forEach(function (q) { if (q.tag && tags.indexOf(q.tag) < 0) tags.push(q.tag); });
+    var shadeBox = el('div');
+    function drawShade() {
+        shadeBox.innerHTML = '';
+        if (PALETTE[p.color + '-light']) shadeBox.append(el('label', { class: 'chk', style: 'margin-top:10px' }, el('input', { type: 'checkbox', checked: p.shade === 'light', onchange: function (e) { p.shade = e.target.checked ? 'light' : ''; changed(); } }), 'Use the lighter ' + p.color + ' shade'));
+    }
+    var sw = el('div', { class: 'swatches' });
+    function drawSw() {
+        sw.innerHTML = '';
+        COLORS.forEach(function (c) {
+            sw.append(el('button', { class: 'sw' + (p.color === c ? ' on' : ''), title: c, style: 'background:' + SWATCH[c], onclick: function () { p.color = c; if (!PALETTE[c + '-light']) p.shade = ''; drawSw(); drawShade(); changed(); } }));
+        });
+    }
+    drawSw(); drawShade();
+    host.append(sec('Look',
+        el('datalist', { id: 'tags' }, tags.map(function (t) { return el('option', { value: t }); })),
+        field('Tag (the coloured pill)', null, txt(p, 'tag', { list: 'tags', ph: 'Web App & Tool' })),
+        el('div', { class: 'fld' }, el('span', { class: 'lbl' }, 'Colour'), sw, shadeBox)));
+
+    var thumb = el('img', { src: p.icon || '', alt: '', style: 'width:44px;height:44px;border-radius:10px;object-fit:cover;background:#1c1c42', onerror: function () { this.style.visibility = 'hidden'; }, onload: function () { this.style.visibility = 'visible'; } });
+    host.append(sec('Icon & links',
+        el('div', { style: 'display:flex;gap:10px;align-items:flex-end' },
+            el('div', { style: 'flex:1;min-width:0' }, field('Icon image URL', null, txt(p, 'icon', { ph: 'https://…/icon.png', after: function () { thumb.src = p.icon; } }))), thumb),
+        el('div', { style: 'height:12px' }),
+        el('div', { class: 'g2' },
+            field('Placeholder text', 'Shown if the image fails', txt(p, 'iconFallback', { ph: 'ABC' })),
+            field('Placeholder colour', 'Hex, no #', txt(p, 'iconFallbackColor', { ph: 'c4a5ff' }))),
+        el('div', { style: 'height:12px' }),
+        field('GitHub repo', 'Optional — adds the round GitHub badge', txt(p, 'github', { ph: 'https://github.com/you/repo' }))));
+
+    var specialBody = el('div');
+    function drawSpecial() {
+        specialBody.innerHTML = '';
+        if (p.special === 'countdown') {
+            var human = el('span', { class: 'hint' });
+            var upd = function () { var t = Date.parse(p.countdown.launchAt); human.textContent = isNaN(t) ? 'Not a valid date' : 'Your local time: ' + new Date(t).toLocaleString() + (t < Date.now() ? ' (already passed — buttons show now)' : ''); };
+            var inp = txt(p.countdown, 'launchAt', { ph: '2026-10-25T11:45:00Z', after: upd });
+            upd();
+            specialBody.append(
+                field('Launch time (ISO, UTC)', null, el('div', { style: 'display:flex;gap:6px' }, inp,
+                    el('button', { class: 'btn sm', onclick: function () { p.countdown.launchAt = new Date(Date.now() + 864e5).toISOString().replace(/\.\d+Z$/, 'Z'); inp.value = p.countdown.launchAt; upd(); changed(); } }, 'Now + 24h'))),
+                human,
+                el('div', { style: 'height:12px' }),
+                el('div', { class: 'lbl', style: 'margin-bottom:8px' }, 'Buttons shown after launch'),
+                btnEditor(p.countdown.buttons),
+                el('p', { class: 'hint' }, 'The countdown box is always amber. The normal buttons below are not used while this is on.'));
+        } else if (p.special === 'osDownload') {
+            specialBody.append(
+                field('Base URL', 'Folder URL ending in /', txt(p.osDownload, 'baseUrl', { ph: 'https://github.com/you/app/releases/download/v1.0.0/' })),
+                el('div', { style: 'height:12px' }),
+                el('div', { class: 'g3' },
+                    field('Windows file', null, txt(p.osDownload, 'windows', { ph: 'App.exe' })),
+                    field('macOS file', null, txt(p.osDownload, 'mac', { ph: 'App.dmg' })),
+                    field('Linux file', null, txt(p.osDownload, 'linux', { ph: 'App.AppImage' }))),
+                el('p', { class: 'hint' }, 'Adds a first button that links to the right file for each visitor’s OS. Your normal buttons come after it.'));
+        }
+    }
+    drawSpecial();
+    var specialSel = el('select', { class: 'inp', onchange: function (e) { p.special = e.target.value; drawSpecial(); drawBtnSec(); changed(); } },
+        [['', 'None'], ['countdown', 'Countdown (buttons appear after launch)'], ['osDownload', 'OS-detected download button']].map(function (o) { return el('option', { value: o[0], selected: p.special === o[0] }, o[1]); }));
+    host.append(sec('Special behaviour', field('Type', null, specialSel), specialBody));
+
+    var btnSec = el('section', { class: 'sec' });
+    function drawBtnSec() {
+        btnSec.innerHTML = '';
+        btnSec.append(el('h3', {}, 'Buttons'));
+        if (p.special === 'countdown') btnSec.append(el('p', { class: 'hint' }, 'Countdown is on — edit its buttons in the section above.'));
+        else btnSec.append(el('datalist', { id: 'icons' }, ICONS.map(function (i) { return el('option', { value: i }); })), btnEditor(p.buttons));
+        if (p.special === 'countdown') btnSec.append(el('datalist', { id: 'icons' }, ICONS.map(function (i) { return el('option', { value: i }); })));
+    }
+    drawBtnSec();
+    host.append(btnSec);
+
+    host.append(sec('Project',
+        el('div', { style: 'display:flex;gap:10px;flex-wrap:wrap' },
+            el('label', { class: 'chk' }, el('input', { type: 'checkbox', checked: p.hidden, onchange: function (e) { p.hidden = e.target.checked; changed(); } }), 'Hide from the site (keeps it in the file)'),
+            el('div', { class: 'sp' }),
+            el('button', { class: 'btn sm', onclick: function () {
+                var c = JSON.parse(JSON.stringify(p)); c.id = p.id + '-copy'; c.title = p.title + ' (copy)';
+                data.projects.splice(sel + 1, 0, c); sel++; changed(); renderEditor();
+            } }, el('i', { class: 'fas fa-clone' }), ' Duplicate'),
+            el('button', { class: 'btn sm danger', onclick: function () {
+                if (!confirm('Delete “' + (p.title || p.id) + '”? (You can still undo by not publishing / using Restore.)')) return;
+                data.projects.splice(sel, 1); sel = Math.min(sel, data.projects.length - 1); changed(); renderEditor();
+            } }, el('i', { class: 'fas fa-trash' }), ' Delete'))));
+    renderIssues();
+}
+function renderIssues() {
+    var box = $('#issues'); if (!box) return;
+    var p = data.projects[sel]; box.innerHTML = '';
+    var list = p ? issues(p, sel) : [];
+    box.style.display = list.length ? '' : 'none';
+    list.forEach(function (x) { box.append(el('div', { class: 'issue ' + x.l }, el('i', { class: 'fas ' + (x.l === 'error' ? 'fa-circle-exclamation' : 'fa-triangle-exclamation') }), x.m)); });
+}
+
+// ---------- preview ----------
+function renderPreview() {
+    var box = $('#preview'), note = $('#prevnote'), p = data.projects[sel];
+    note.innerHTML = '';
+    if (!p) { box.innerHTML = '<p class="hint">Nothing selected.</p>'; return; }
+    if (p.hidden) note.append(el('div', { class: 'preview-note' }, 'This project is hidden — it will not appear on the site.'));
+    var c = clean(p);
+    box.innerHTML = cardHtml(c);
+    var card = box.firstElementChild;
+    var img = card.querySelector('img[data-fallback]');
+    if (img) img.addEventListener('error', function () { img.src = img.getAttribute('data-fallback'); }, { once: true });
+    if (c.special === 'countdown') {
+        var cb = card.querySelector('[data-countdown-buttons]');
+        if (cb) { cb.classList.remove('hidden'); note.append(el('div', { class: 'preview-note' }, 'Preview shows the countdown and the post-launch buttons together.')); }
+    }
+    var dl = card.querySelector('[data-os-label]');
+    if (dl) { dl.textContent = 'Download for Windows'; }
+}
+
+// ---------- import / export / raw ----------
+function download(name, text) {
+    var a = el('a', { href: URL.createObjectURL(new Blob([text], { type: 'application/json' })), download: name });
+    document.body.append(a); a.click(); a.remove();
+}
+function loadText(text, label) {
+    var j = JSON.parse(text);
+    if (!j || !Array.isArray(j.projects)) throw new Error('Needs a { "projects": [ … ] } object');
+    data = normalize(j); sel = data.projects.length ? 0 : -1;
+    renderEditor(); changed();
+    toast(label + ' (' + data.projects.length + ' projects)', 'ok');
+}
+function rawModal() {
+    var ta = el('textarea', { class: 'inp mono', style: 'min-height:55vh;font-size:12px', spellcheck: 'false', value: jsonText() });
+    modal('Raw projects.json', ta, function (close) {
+        return [el('button', { class: 'btn', onclick: close }, 'Cancel'),
+            el('button', { class: 'btn', onclick: function () { navigator.clipboard && navigator.clipboard.writeText(ta.value).then(function () { toast('Copied', 'ok'); }); } }, 'Copy'),
+            el('button', { class: 'btn primary', onclick: function () { try { loadText(ta.value, 'Applied JSON'); close(); } catch (e) { toast('Invalid JSON: ' + e.message, 'err'); } } }, 'Apply')];
+    });
+}
+
+// ---------- GitHub ----------
+function ghLoad() {
+    var s = {}; try { s = JSON.parse(localStorage.getItem(GH_KEY) || '{}'); } catch (e) {}
+    var tok = ''; try { tok = localStorage.getItem(GH_KEY + '-token') || sessionStorage.getItem(GH_KEY + '-token') || ''; } catch (e) {}
+    return { owner: s.owner || 'Lavin0503', repo: s.repo || '', branch: s.branch || 'main', path: s.path || 'projects.json', remember: s.remember !== false, token: tok };
+}
+function ghSave(s) {
+    localStorage.setItem(GH_KEY, JSON.stringify({ owner: s.owner, repo: s.repo, branch: s.branch, path: s.path, remember: s.remember }));
+    try { localStorage.removeItem(GH_KEY + '-token'); sessionStorage.removeItem(GH_KEY + '-token'); } catch (e) {}
+    if (s.token) (s.remember ? localStorage : sessionStorage).setItem(GH_KEY + '-token', s.token);
+}
+function ghUrl(s) { return 'https://api.github.com/repos/' + encodeURIComponent(s.owner) + '/' + encodeURIComponent(s.repo) + '/contents/' + s.path.split('/').map(encodeURIComponent).join('/'); }
+function ghHeaders(s) { return { Authorization: 'Bearer ' + s.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }; }
+function b64(str) { var bytes = new TextEncoder().encode(str), s = ''; bytes.forEach(function (b) { s += String.fromCharCode(b); }); return btoa(s); }
+function unb64(b) { var s = atob(String(b).replace(/\s/g, '')); return new TextDecoder().decode(Uint8Array.from(s, function (c) { return c.charCodeAt(0); })); }
+function ghError(res, body) {
+    if (res.status === 401) return 'GitHub rejected the token (401). Check it hasn’t expired.';
+    if (res.status === 403) return 'Token isn’t allowed to do that (403). It needs “Contents: Read and write” on this repo.';
+    if (res.status === 404) return 'Repo, branch or file path not found (404) — or the token can’t see this repo.';
+    if (res.status === 409 || res.status === 422) return 'The file changed on GitHub while you were editing (' + res.status + '). Reload the page and try again.';
+    return 'GitHub error ' + res.status + (body && body.message ? ': ' + body.message : '');
+}
+
+function settingsModal(after) {
+    var s = ghLoad();
+    var f = {
+        owner: el('input', { class: 'inp', value: s.owner, placeholder: 'Lavin0503' }),
+        repo: el('input', { class: 'inp', value: s.repo, placeholder: 'Lavin0503.github.io' }),
+        branch: el('input', { class: 'inp', value: s.branch }),
+        path: el('input', { class: 'inp', value: s.path }),
+        token: el('input', { class: 'inp', type: 'password', value: s.token, placeholder: 'github_pat_…', autocomplete: 'off' }),
+        remember: el('input', { type: 'checkbox', checked: s.remember })
+    };
+    function read() { return { owner: f.owner.value.trim(), repo: f.repo.value.trim(), branch: f.branch.value.trim() || 'main', path: f.path.value.trim() || 'projects.json', token: f.token.value.trim(), remember: f.remember.checked }; }
+    var body = el('div', {},
+        el('p', { class: 'hint', style: 'margin:0 0 14px;line-height:1.6' },
+            'Publishing saves projects.json straight to your repo as a commit. Make a ', el('b', {}, 'fine-grained token'), ' at GitHub → Settings → Developer settings → Personal access tokens, limited to ', el('b', {}, 'this one repo'), ' with ', el('b', {}, 'Contents: Read and write'),
+            '. The token stays in this browser only and is only ever sent to api.github.com.'),
+        el('div', { class: 'g2' }, field('Owner', null, f.owner), field('Repository', 'The repo that hosts this site', f.repo)),
+        el('div', { style: 'height:12px' }),
+        el('div', { class: 'g2' }, field('Branch', null, f.branch), field('File path', null, f.path)),
+        el('div', { style: 'height:12px' }),
+        field('Access token', null, f.token),
+        el('label', { class: 'chk', style: 'margin-top:10px' }, f.remember, 'Remember the token on this device (otherwise only until you close the tab)'));
+    modal('GitHub connection', body, function (close) {
+        return [
+            el('button', { class: 'btn danger', onclick: function () { f.token.value = ''; var v = read(); ghSave(v); toast('Token forgotten', 'ok'); } }, 'Forget token'),
+            el('div', { class: 'sp' }),
+            el('button', { class: 'btn', onclick: function () {
+                var v = read();
+                if (!v.owner || !v.repo || !v.token) return toast('Fill in owner, repo and token first', 'err');
+                fetch(ghUrl(v) + '?ref=' + encodeURIComponent(v.branch), { headers: ghHeaders(v) }).then(function (r) { return r.json().then(function (j) { return { r: r, j: j }; }); })
+                    .then(function (x) { toast(x.r.ok ? 'Connected — found ' + v.path + ' on ' + v.branch : ghError(x.r, x.j), x.r.ok ? 'ok' : 'err'); })
+                    .catch(function (e) { toast('Network error: ' + e.message, 'err'); });
+            } }, 'Test'),
+            el('button', { class: 'btn primary', onclick: function () { var v = read(); ghSave(v); close(); toast('Saved', 'ok'); if (after) after(); } }, 'Save')];
+    });
+}
+
+function summary() {
+    var base = {}; try { JSON.parse(baseline).projects.forEach(function (p) { base[p.id] = JSON.stringify(p); }); } catch (e) {}
+    var cur = {}, order = [];
+    data.projects.map(clean).forEach(function (p) { cur[p.id] = JSON.stringify(p); order.push(p.id); });
+    var added = order.filter(function (k) { return !(k in base); }), removed = Object.keys(base).filter(function (k) { return !(k in cur); });
+    var edited = order.filter(function (k) { return k in base && base[k] !== cur[k]; });
+    var out = [];
+    if (added.length) out.push('Added: ' + added.join(', '));
+    if (edited.length) out.push('Edited: ' + edited.join(', '));
+    if (removed.length) out.push('Removed: ' + removed.join(', '));
+    if (!out.length && jsonText() !== baseline) out.push('Reordered / formatting only');
+    return out;
+}
+
+function publish() {
+    if (hasErrors()) return toast('Fix the red issues first (see the list on the left)', 'err');
+    var s = ghLoad();
+    if (!s.repo || !s.token) return settingsModal(publish);
+    var text = jsonText();
+    var lines = summary();
+    var msg = el('input', { class: 'inp', value: 'Update projects via dashboard' });
+    modal('Publish to GitHub', el('div', {},
+        el('p', { style: 'margin:0 0 10px;font-size:13px' }, 'Commits ', el('code', { class: 'k' }, s.path), ' to ', el('code', { class: 'k' }, s.owner + '/' + s.repo + '@' + s.branch), '.'),
+        lines.length ? el('ul', { style: 'margin:0 0 14px;padding-left:18px;font-size:13px;color:#d1d5db' }, lines.map(function (l) { return el('li', {}, l); })) : el('p', { class: 'hint' }, 'No changes compared to what you loaded.'),
+        field('Commit message', null, msg),
+        el('p', { class: 'hint', style: 'margin-top:12px' }, 'GitHub Pages usually takes about a minute to show the change on the live site.')),
+        function (close) {
+            var go = el('button', { class: 'btn primary' }, 'Publish');
+            go.addEventListener('click', function () {
+                go.disabled = true; go.textContent = 'Publishing…';
+                var url = ghUrl(s);
+                fetch(url + '?ref=' + encodeURIComponent(s.branch), { headers: ghHeaders(s), cache: 'no-store' })
+                    .then(function (r) { return r.json().then(function (j) { if (!r.ok && r.status !== 404) throw new Error(ghError(r, j)); return r.ok ? j : null; }); })
+                    .then(function (remote) {
+                        if (remote) {
+                            var same = false;
+                            try { same = JSON.stringify(JSON.parse(unb64(remote.content))) === JSON.stringify(JSON.parse(baseline)); } catch (e) {}
+                            if (!same && !confirm('The file on GitHub is different from the version you loaded (someone/something edited it). Overwrite it with your version?')) throw new Error('Cancelled');
+                        }
+                        var body = { message: msg.value || 'Update projects', content: b64(text), branch: s.branch };
+                        if (remote && remote.sha) body.sha = remote.sha;
+                        return fetch(url, { method: 'PUT', headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders(s)), body: JSON.stringify(body) })
+                            .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(ghError(r, j)); return j; }); });
+                    })
+                    .then(function (j) {
+                        baseline = text; try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+                        updateStatus(); close();
+                        var link = j && j.commit && j.commit.html_url;
+                        toast('Published ✓ — live in about a minute' + (link ? ' (commit saved)' : ''), 'ok');
+                    })
+                    .catch(function (e) { go.disabled = false; go.textContent = 'Publish'; if (e.message !== 'Cancelled') toast(e.message, 'err'); });
+            });
+            return [el('button', { class: 'btn', onclick: close }, 'Cancel'), el('button', { class: 'btn', onclick: function () { close(); settingsModal(); } }, 'Settings'), go];
+        });
+}
+
+// ---------- boot ----------
+function showDraftBanner(draft) {
+    var b = $('#draft'); b.innerHTML = '';
+    b.append(el('div', { class: 'banner' }, el('i', { class: 'fas fa-clock-rotate-left' }), 'You have unpublished edits saved in this browser.',
+        el('button', { class: 'btn sm', onclick: function () { try { loadText(draft, 'Restored your draft'); } catch (e) { toast('Draft was invalid', 'err'); } b.innerHTML = ''; } }, 'Restore'),
+        el('button', { class: 'btn sm', onclick: function () { try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} b.innerHTML = ''; } }, 'Discard')));
+}
+
+$('#b-new').onclick = addProject;
+$('#b-export').onclick = function () { download('projects.json', jsonText()); };
+$('#b-raw').onclick = rawModal;
+$('#b-settings').onclick = function () { settingsModal(); };
+$('#b-publish').onclick = publish;
+$('#b-import').onclick = function () { $('#file').click(); };
+$('#file').onchange = function (e) {
+    var f = e.target.files[0]; if (!f) return;
+    f.text().then(function (t) { loadText(t, 'Imported ' + f.name); }).catch(function (err) { toast('Couldn’t import: ' + err.message, 'err'); });
+    e.target.value = '';
+};
+$('#q').addEventListener('input', renderList);
+
+fetch('projects.json?v=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (j) { data = normalize(j); })
+    .catch(function (e) { data = { projects: [] }; toast('Couldn’t load projects.json (' + e.message + '). Open this page over http(s), not file://.', 'err'); })
+    .then(function () {
+        baseline = jsonText();
+        sel = data.projects.length ? 0 : -1;
+        renderEditor(); renderList(); renderPreview(); updateStatus();
+        var draft = null; try { draft = localStorage.getItem(DRAFT_KEY); } catch (e) {}
+        if (draft && draft !== baseline) showDraftBanner(draft);
+    });
+})();
+</script>
+</body>
+</html>
