@@ -674,7 +674,7 @@ function b64(str) { var bytes = new TextEncoder().encode(str), s = ''; bytes.for
 function unb64(b) { var s = atob(String(b).replace(/\s/g, '')); return new TextDecoder().decode(Uint8Array.from(s, function (c) { return c.charCodeAt(0); })); }
 function ghError(res, body) {
     if (res.status === 401) return 'GitHub rejected the token (401). Check it hasn’t expired.';
-    if (res.status === 403) return 'Token isn’t allowed to do that (403). It needs “Contents: Read and write” on this repo.';
+    if (res.status === 403) return 'Token isn’t allowed to do that (403). It needs “Contents: Read and write” on this repo, and its Repository access must include it.' + (body && body.message ? ' GitHub says: ' + body.message : '');
     if (res.status === 404) return 'Repo, branch or file path not found (404) — or the token can’t see this repo.';
     if (res.status === 409 || res.status === 422) return 'The file changed on GitHub while you were editing (' + res.status + '). Reload the page and try again.';
     return 'GitHub error ' + res.status + (body && body.message ? ': ' + body.message : '');
