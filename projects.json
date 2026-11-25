@@ -4,7 +4,9 @@
       "id": "utility-bot",
       "title": "Lav1n’s Utility Bot",
       "description": "A powerful Discord utility bot to help manage and supercharge your server with robust automation tools.",
-      "categories": ["discord"],
+      "categories": [
+        "discord"
+      ],
       "keywords": "discord bot management automation",
       "tag": "Discord Bot",
       "color": "indigo",
@@ -12,14 +14,20 @@
       "iconFallback": "BOT",
       "iconFallbackColor": "c4a5ff",
       "buttons": [
-        { "label": "Authorize Bot", "url": "https://discord.com/oauth2/authorize?client_id=1448345852073742540", "icon": "fas fa-external-link-alt" }
+        {
+          "label": "Authorize Bot",
+          "url": "https://discord.com/oauth2/authorize?client_id=1448345852073742540",
+          "icon": "fas fa-external-link-alt"
+        }
       ]
     },
     {
       "id": "webhooks",
       "title": "Lav1n’s Webhooks",
       "description": "Create, manage, and send custom Discord webhooks with ease directly from your browser.",
-      "categories": ["web"],
+      "categories": [
+        "web"
+      ],
       "keywords": "discord webhook tool manager",
       "tag": "Web App & Tool",
       "color": "accent",
@@ -28,14 +36,20 @@
       "iconFallbackColor": "c4a5ff",
       "github": "https://github.com/Lavin0503/Lav1nsWebhooks",
       "buttons": [
-        { "label": "Launch Webhooks", "url": "https://lavin0503.github.io/Lav1nsWebhooks/", "icon": "fas fa-external-link-alt" }
+        {
+          "label": "Launch Webhooks",
+          "url": "https://lavin0503.github.io/Lav1nsWebhooks/",
+          "icon": "fas fa-external-link-alt"
+        }
       ]
     },
     {
       "id": "airport2airport",
       "title": "Airport2Airport",
       "description": "Seamless flight route and airport connection tracker for aviation enthusiasts.",
-      "categories": ["web"],
+      "categories": [
+        "web"
+      ],
       "keywords": "flight route airport connection tracker",
       "tag": "Web App & Tool",
       "color": "cyan",
@@ -44,154 +58,47 @@
       "iconFallbackColor": "00f0ff",
       "github": "https://github.com/Lavin0503/a2a",
       "buttons": [
-        { "label": "Visit Airport2Airport", "url": "https://airport2airport.duckdns.org/", "icon": "fas fa-external-link-alt" }
+        {
+          "label": "Visit Airport2Airport",
+          "url": "https://airport2airport.duckdns.org/",
+          "icon": "fas fa-external-link-alt"
+        }
       ]
     },
     {
       "id": "givevanced",
       "title": "Givevanced",
       "description": "A free, advanced Discord giveaway bot. Entry requirements, extra entries, DM claims, winner roles and automatic rerolls, all without a paywall.",
-      "categories": ["discord"],
+      "categories": [
+        "discord"
+      ],
       "keywords": "giveaway bot discord bot giveaways free",
       "tag": "Discord Bot",
       "color": "amber",
-      "icon": "https://lavin0503.github.io/Givevanced/Givevanced%20Logo.jpg",
+      "icon": "https://i.imgur.com/3FGQ5Vx.jpeg",
       "iconFallback": "GV",
       "iconFallbackColor": "ffb340",
-      "buttons": [],
-      "special": "countdown",
-      "countdown": {
-        "launchAt": "2026-10-25T11:45:00Z",
-        "buttons": [
-          { "label": "Authorize", "url": "https://discord.com/oauth2/authorize?client_id=1558890733002297436", "icon": "fas fa-external-link-alt" },
-          { "label": "Website", "url": "https://givevanced.is-a.bot", "icon": "fas fa-external-link-alt", "color": "accent" }
-        ]
-      }
-    },
-    {
-      "id": "magic-square",
-      "title": "Magic Square",
-      "description": "Magic Square is a game — an interactive magic square puzzle and math tool exploring mathematical matrices.",
-      "categories": ["web", "games"],
-      "keywords": "puzzle math tool web app",
-      "tag": "Web App & Game",
-      "color": "amber",
-      "icon": "https://lavin0503.github.io/ms/2026_07_18_0i9_Kleki.png",
-      "iconFallback": "MS",
-      "iconFallbackColor": "f59e0b",
-      "github": "https://github.com/Lavin0503/ms",
       "buttons": [
-        { "label": "Open Magic Square", "url": "https://lavin0503.github.io/ms/", "icon": "fas fa-external-link-alt" }
-      ]
-    },
-    {
-      "id": "ums",
-      "title": "Untitled Maths System (UMS)",
-      "description": "Untitled Maths System (UMS) is a game.",
-      "categories": ["games"],
-      "keywords": "ums math game puzzle",
-      "tag": "Game",
-      "color": "emerald",
-      "icon": "https://lavin0503.github.io/ums/Screenshot%202026-04-26%20103644.png",
-      "iconFallback": "UMS",
-      "iconFallbackColor": "10b981",
-      "github": "https://github.com/Lavin0503/ums",
-      "buttons": [
-        { "label": "Play UMS Game", "url": "https://lavin0503.github.io/ums/", "icon": "fas fa-external-link-alt" }
-      ]
-    },
-    {
-      "id": "sun-vs-moon",
-      "title": "Sun vs Moon Auto Clicker",
-      "description": "A userscript that automatically clicks either the Sun or Moon button when you press `S` and stops clicking when you press `M` on [neal.fun/sun-vs-moon](https://neal.fun/sun-vs-moon/). Install it in Tampermonkey from GreasyFork.",
-      "categories": ["browser"],
-      "keywords": "userscript tampermonkey neal.fun",
-      "tag": "Userscript",
-      "color": "yellow",
-      "icon": "https://i.ibb.co/QXR89nv/2024-11-03-0z1-Kleki.png",
-      "iconFallback": "SUN",
-      "iconFallbackColor": "eab308",
-      "buttons": [
-        { "label": "Get on Tampermonkey (GreasyFork)", "url": "https://greasyfork.org/en/scripts/515639-sun-vs-moon-auto-click-switchable", "icon": "fas fa-external-link-alt" }
-      ]
-    },
-    {
-      "id": "neal-fun-restorer",
-      "title": "Neal.fun Deleted Games Restorer",
-      "description": "A userscript that restores deleted games on [neal.fun](https://neal.fun). Install it in Tampermonkey from GreasyFork.",
-      "categories": ["browser"],
-      "keywords": "userscript tampermonkey",
-      "tag": "Userscript",
-      "color": "purple",
-      "icon": "https://i.ibb.co/zHs3swQQ/2026-10-02-0z3-Kleki.png",
-      "iconFallback": "NF",
-      "iconFallbackColor": "a855f7",
-      "buttons": [
-        { "label": "Get on Tampermonkey (GreasyFork)", "url": "https://greasyfork.org/en/scripts/598446-neal-fun-deleted-games-restorer", "icon": "fas fa-external-link-alt" }
-      ]
-    },
-    {
-      "id": "wave",
-      "title": "Wave - Floating Web Viewer",
-      "description": "Draggable/resizable floating panel (Wave) with tabs, bookmarks, theme presets, frame-block detection, an in-viewer address bar with suggestions, onboarding help, a Tampermonkey menu command, and a hotkey to snap it to your mouse. Press `p` to open/close. Available as a Tampermonkey userscript, a Microsoft Edge extension, and a Firefox add-on.",
-      "categories": ["browser"],
-      "keywords": "browser extension tampermonkey",
-      "tag": "Browser Extension",
-      "color": "blue",
-      "icon": "https://lavin0503.github.io/Lavin0503/waw.png",
-      "iconFallback": "WAVE",
-      "iconFallbackColor": "3b82f6",
-      "buttons": [
-        { "label": "Microsoft Edge Add-ons", "url": "https://microsoftedge.microsoft.com/addons/detail/wave-floating-web-viewe/cdklkmbjnedmlmenecncokgpmgondign", "icon": "fab fa-edge", "color": "teal" },
-        { "label": "Firefox Add-ons", "url": "https://addons.mozilla.org/en-US/firefox/addon/wave-floating-web-viewer/", "icon": "fab fa-firefox-browser", "color": "orange" },
-        { "label": "Tampermonkey (GreasyFork)", "url": "https://greasyfork.org/en/scripts/590044-wave-floating-web-viewer", "icon": "fas fa-code", "color": "blue" }
-      ]
-    },
-    {
-      "id": "l1ve-os",
-      "title": "L1ve OS",
-      "description": "L1VE OS is a free, install-free desktop app for Windows, macOS and Linux, with draggable icons, a file manager, a taskbar, and an app store.",
-      "categories": ["web"],
-      "keywords": "desktop exe dmg appimage windows mac linux draggable icons file manager taskbar app store",
-      "tag": "Web App & Tool",
-      "color": "pink",
-      "icon": "https://lav1n.is-a.dev/L1ve-OS/logo.svg",
-      "iconFallback": "L1",
-      "iconFallbackColor": "ff007f",
-      "github": "https://github.com/Lavin0503/L1ve-OS",
-      "special": "osDownload",
-      "osDownload": {
-        "baseUrl": "https://github.com/Lavin0503/L1ve-OS/releases/download/v2.0.0/",
-        "windows": "L1ve.OS.exe",
-        "mac": "L1ve_OS_MacOS.dmg",
-        "linux": "L1VE.OS.AppImage"
-      },
-      "buttons": [
-        { "label": "Open L1ve OS", "url": "https://lav1n.is-a.dev/L1ve-OS/", "icon": "fas fa-external-link-alt" }
-      ]
-    },
-    {
-      "id": "oneko-windows",
-      "title": "Oneko for Windows",
-      "description": "A tiny pixel cat that chases your mouse around the screen. She never blocks a click, and she’s fully customizable.",
-      "categories": ["web"],
-      "keywords": "pixel cat desktop pet mouse chaser customizable exe",
-      "tag": "Desktop App",
-      "color": "violet",
-      "icon": "https://lav1n.is-a.dev/Oneko-For-Windows/assets/oneko.ico",
-      "iconFallback": "NEKO",
-      "iconFallbackColor": "c4a5ff",
-      "github": "https://github.com/Lavin0503/Oneko-For-Windows",
-      "buttons": [
-        { "label": "Download for Windows", "url": "https://github.com/Lavin0503/Oneko-For-Windows/releases/latest/download/Oneko.exe", "icon": "fab fa-windows text-xs", "newTab": false },
-        { "label": "Website", "url": "https://lav1n.is-a.dev/Oneko-For-Windows/", "icon": "fas fa-external-link-alt" }
+        {
+          "label": "Authorize",
+          "url": "https://discord.com/oauth2/authorize?client_id=1558890733002297436",
+          "icon": "fas fa-external-link-alt"
+        },
+        {
+          "label": "Website",
+          "url": "https://givevanced.is-a.bot/",
+          "icon": "fas fa-external-link-alt",
+          "color": "violet"
+        }
       ]
     },
     {
       "id": "patch",
       "title": "Patch",
       "description": "A clean badge maker for READMEs and websites. Pick your colors and styles, add any of 3,000+ brand logos, animate a status dot, show live counts like Discord members or GitHub stars, and copy the Markdown.",
-      "categories": ["web"],
+      "categories": [
+        "web"
+      ],
       "keywords": "badge maker badges readme shields github discord youtube live counts logos generator",
       "tag": "Web App & Tool",
       "color": "indigo",
@@ -201,7 +108,189 @@
       "iconFallbackColor": "7c5cff",
       "github": "https://github.com/Lavin0503/Patch",
       "buttons": [
-        { "label": "Open Patch", "url": "https://lav1n.is-a.dev/Patch/", "icon": "fas fa-external-link-alt" }
+        {
+          "label": "Open Patch",
+          "url": "https://lav1n.is-a.dev/Patch/",
+          "icon": "fas fa-external-link-alt"
+        }
+      ]
+    },
+    {
+      "id": "l1ve-os",
+      "title": "L1ve OS",
+      "description": "L1VE OS is a free, install-free desktop app for Windows, macOS and Linux, with draggable icons, a file manager, a taskbar, and an app store.",
+      "categories": [
+        "web"
+      ],
+      "keywords": "desktop exe dmg appimage windows mac linux draggable icons file manager taskbar app store",
+      "tag": "Web App & Tool",
+      "color": "pink",
+      "icon": "https://lav1n.is-a.dev/L1ve-OS/logo.svg",
+      "iconFallback": "L1",
+      "iconFallbackColor": "ff007f",
+      "github": "https://github.com/Lavin0503/L1ve-OS",
+      "buttons": [
+        {
+          "label": "Open L1ve OS",
+          "url": "https://lav1n.is-a.dev/L1ve-OS/",
+          "icon": "fas fa-external-link-alt"
+        }
+      ],
+      "special": "osDownload",
+      "osDownload": {
+        "baseUrl": "https://github.com/Lavin0503/L1ve-OS/releases/download/v2.0.0/",
+        "windows": "L1ve.OS.exe",
+        "mac": "L1ve_OS_MacOS.dmg",
+        "linux": "L1VE.OS.AppImage"
+      }
+    },
+    {
+      "id": "oneko-windows",
+      "title": "Oneko for Windows",
+      "description": "A tiny pixel cat that chases your mouse around the screen. She never blocks a click, and she’s fully customizable.",
+      "categories": [
+        "web"
+      ],
+      "keywords": "pixel cat desktop pet mouse chaser customizable exe",
+      "tag": "Desktop App",
+      "color": "violet",
+      "icon": "https://lav1n.is-a.dev/Oneko-For-Windows/assets/oneko.ico",
+      "iconFallback": "NEKO",
+      "iconFallbackColor": "c4a5ff",
+      "github": "https://github.com/Lavin0503/Oneko-For-Windows",
+      "buttons": [
+        {
+          "label": "Download for Windows",
+          "url": "https://github.com/Lavin0503/Oneko-For-Windows/releases/latest/download/Oneko.exe",
+          "icon": "fab fa-windows text-xs",
+          "newTab": false
+        },
+        {
+          "label": "Website",
+          "url": "https://lav1n.is-a.dev/Oneko-For-Windows/",
+          "icon": "fas fa-external-link-alt"
+        }
+      ]
+    },
+    {
+      "id": "magic-square",
+      "title": "Magic Square",
+      "description": "Magic Square is a game — an interactive magic square puzzle and math tool exploring mathematical matrices.",
+      "categories": [
+        "web",
+        "games"
+      ],
+      "keywords": "puzzle math tool web app",
+      "tag": "Web App & Game",
+      "color": "amber",
+      "icon": "https://lavin0503.github.io/ms/2026_07_18_0i9_Kleki.png",
+      "iconFallback": "MS",
+      "iconFallbackColor": "f59e0b",
+      "github": "https://github.com/Lavin0503/ms",
+      "buttons": [
+        {
+          "label": "Open Magic Square",
+          "url": "https://lavin0503.github.io/ms/",
+          "icon": "fas fa-external-link-alt"
+        }
+      ]
+    },
+    {
+      "id": "ums",
+      "title": "Untitled Maths System (UMS)",
+      "description": "Untitled Maths System (UMS) is a game.",
+      "categories": [
+        "games"
+      ],
+      "keywords": "ums math game puzzle",
+      "tag": "Game",
+      "color": "emerald",
+      "icon": "https://lavin0503.github.io/ums/Screenshot%202026-04-26%20103644.png",
+      "iconFallback": "UMS",
+      "iconFallbackColor": "10b981",
+      "github": "https://github.com/Lavin0503/ums",
+      "buttons": [
+        {
+          "label": "Play UMS Game",
+          "url": "https://lavin0503.github.io/ums/",
+          "icon": "fas fa-external-link-alt"
+        }
+      ]
+    },
+    {
+      "id": "sun-vs-moon",
+      "title": "Sun vs Moon Auto Clicker",
+      "description": "A userscript that automatically clicks either the Sun or Moon button when you press `S` and stops clicking when you press `M` on [neal.fun/sun-vs-moon](https://neal.fun/sun-vs-moon/). Install it in Tampermonkey from GreasyFork.",
+      "categories": [
+        "browser"
+      ],
+      "keywords": "userscript tampermonkey neal.fun",
+      "tag": "Userscript",
+      "color": "yellow",
+      "icon": "https://i.ibb.co/QXR89nv/2024-11-03-0z1-Kleki.png",
+      "iconFallback": "SUN",
+      "iconFallbackColor": "eab308",
+      "buttons": [
+        {
+          "label": "Get on Tampermonkey (GreasyFork)",
+          "url": "https://greasyfork.org/en/scripts/515639-sun-vs-moon-auto-click-switchable",
+          "icon": "fas fa-external-link-alt"
+        }
+      ]
+    },
+    {
+      "id": "neal-fun-restorer",
+      "title": "Neal.fun Deleted Games Restorer",
+      "description": "A userscript that restores deleted games on [neal.fun](https://neal.fun). Install it in Tampermonkey from GreasyFork.",
+      "categories": [
+        "browser"
+      ],
+      "keywords": "userscript tampermonkey",
+      "tag": "Userscript",
+      "color": "purple",
+      "icon": "https://i.ibb.co/zHs3swQQ/2026-10-02-0z3-Kleki.png",
+      "iconFallback": "NF",
+      "iconFallbackColor": "a855f7",
+      "buttons": [
+        {
+          "label": "Get on Tampermonkey (GreasyFork)",
+          "url": "https://greasyfork.org/en/scripts/598446-neal-fun-deleted-games-restorer",
+          "icon": "fas fa-external-link-alt"
+        }
+      ]
+    },
+    {
+      "id": "wave",
+      "title": "Wave - Floating Web Viewer",
+      "description": "Draggable/resizable floating panel (Wave) with tabs, bookmarks, theme presets, frame-block detection, an in-viewer address bar with suggestions, onboarding help, a Tampermonkey menu command, and a hotkey to snap it to your mouse. Press `p` to open/close. Available as a Tampermonkey userscript, a Microsoft Edge extension, and a Firefox add-on.",
+      "categories": [
+        "browser"
+      ],
+      "keywords": "browser extension tampermonkey",
+      "tag": "Browser Extension",
+      "color": "blue",
+      "icon": "https://lavin0503.github.io/Lavin0503/waw.png",
+      "iconFallback": "WAVE",
+      "iconFallbackColor": "3b82f6",
+      "buttons": [
+        {
+          "label": "Microsoft Edge Add-ons",
+          "url": "https://microsoftedge.microsoft.com/addons/detail/wave-floating-web-viewe/cdklkmbjnedmlmenecncokgpmgondign",
+          "icon": "fab fa-edge",
+          "color": "teal"
+        },
+        {
+          "label": "Firefox Add-ons",
+          "url": "https://addons.mozilla.org/en-US/firefox/addon/wave-floating-web-viewer/",
+          "icon": "fab fa-firefox-browser",
+          "color": "orange"
+        },
+        {
+          "label": "Tampermonkey (GreasyFork)",
+          "url": "https://greasyfork.org/en/scripts/590044-wave-floating-web-viewer",
+          "icon": "fas fa-code",
+          "color": "blue"
+        }
       ]
     }
   ]
